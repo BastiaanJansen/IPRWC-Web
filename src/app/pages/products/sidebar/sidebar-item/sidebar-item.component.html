@@ -1,0 +1,10 @@
+<div class="item" [class]="{ 'closed': closed }">
+    <header (click)="toggleView()">
+        <h4>{{ name }}</h4>
+        <fa-icon [icon]="icons.faChevronDown"></fa-icon>
+    </header>
+
+    <div class="content" *ngIf="!closed">
+        <ng-content></ng-content>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-gap: 40px;
+}
+
+main {
+    .products {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-auto-rows: 1fr;
+        grid-gap: 20px;
+    }
+}

@@ -1,1 +1,322 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./app/shared/variables";
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+
+* {
+	padding: 0;
+	margin: 0;
+	// box-sizing: border-box;
+}
+
+html {
+	height: 100%;
+	// -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+body {
+	font-family: "Avenir", "Open Sans", Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	color: $color-black;
+	background-color: rgb(252, 252, 252);
+	overflow-x: hidden;
+	height: 100%;
+	font-weight: normal;
+}
+
+ul {
+	list-style-type: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: $color-black;
+	display: inline-block;
+}
+
+h1 {
+	font-size: 1.6rem;
+}
+
+a,
+p,
+li {
+	font-size: 15px;
+	text-decoration: none;
+	color: $color-black;
+	font-weight: 100;
+}
+
+hr {
+	opacity: 0.2;
+}
+
+.page-enter-active,
+.page-leave-active {
+	transition-timing-function: ease-in-out;
+	transition-duration: 100ms;
+}
+.page-enter,
+.page-leave-to {
+	opacity: 0;
+	transform-origin: center center;
+	// transform: scale(0.99);
+}
+
+.fade-enter-active {
+	animation: fade-in 0.2s;
+}
+
+.fade-leave-active {
+	animation: fade-in 0.2s reverse;
+}
+
+@keyframes fade-in {
+	0% {
+		opacity: 0;
+		transform: scale(0.8);
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+.cta-btn {
+	color: black !important;
+	border-radius: 10px;
+	padding: 10px 18px;
+	background-color: white;
+	font-size: 13px;
+	// display: block;
+	max-width: max-content;
+}
+
+.container {
+	position: relative;
+	margin: 0 auto;
+	max-width: 1100px;
+	height: auto;
+	padding: 0 20px;
+	overflow: visible;
+}
+
+@media only screen and (max-width: 500px) {
+	.btn {
+		flex-grow: 1;
+	}
+}
+
+.btn {
+	cursor: pointer;
+	padding: 10px 20px;
+	border-radius: $borderRadius;
+	transition: 0.3s;
+	font-weight: 500;
+	width: max-content;
+	text-align: center;
+	// flex-grow: 1;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	// flex-basis: 120px;
+
+	p {
+		font-size: 13px;
+		margin: 0 10px;
+	}
+
+	i {
+		// margin-right: 10px;
+		font-size: 13px;
+		position: relative;
+		top: -1px;
+	}
+
+	&.primary {
+		background-color: $color-primary;
+		// border: 1px solid $color-primary;
+		box-shadow: $shadow;
+
+		p,
+		i {
+			color: $color-white;
+		}
+	}
+
+	&.warning {
+		background-color: $color-orange-400;
+
+		p,
+		i {
+			color: $color-white;
+		}
+	}
+
+	&.danger {
+		background-color: $color-red-600;
+
+		p,
+		i {
+			color: $color-white;
+		}
+	}
+
+	&.gray {
+		background-color: $color-gray-300;
+
+		p,
+		i {
+			color: $color-black;
+		}
+
+		&:hover {
+			background-color: darken($color-gray-300, 3%);
+		}
+	}
+
+	&.white {
+		background-color: $color-white;
+		border: 1px solid $color-gray-300;
+		box-shadow: $shadow;
+
+		p,
+		i {
+			color: $color-black;
+		}
+
+		&:hover {
+			background-color: $color-gray-100;
+		}
+	}
+
+	&.border {
+		border: 1px solid $color-gray-400;
+
+		&:hover {
+			background-color: $color-gray-100;
+		}
+
+		p,
+		i {
+			color: $color-black;
+		}
+	}
+}
+
+.label {
+	font-size: 0.75rem;
+	font-weight: bold;
+	margin-bottom: 10px;
+	text-transform: uppercase;
+	letter-spacing: 0.04rem;
+	color: $color-gray-600;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+
+	// label.label {
+	// 	font-size: 0.75rem;
+	// 	font-weight: bold;
+	// 	margin-bottom: 10px;
+	// 	text-transform: uppercase;
+	// 	letter-spacing: 0.04rem;
+	// 	color: $color-gray-700;
+	// }
+
+	input {
+		padding: 12px 15px;
+		border-radius: 10px;
+		border: 1px solid $color-white;
+		outline: none;
+		// margin-bottom: 25px;
+		transition: 0.3s;
+		border: 1px solid $color-gray-400;
+		font-family: "Avenir", Helvetica, Arial, sans-serif;
+		background-color: $color-gray-100;
+		font-size: 12px;
+
+		&.error {
+			border: 1px solid $color-red-500;
+			background-color: $color-red-100 !important;
+		}
+
+		&.success {
+			border: 1px solid $color-green-400;
+			background-color: $color-green-100;
+		}
+
+		&.white {
+			background-color: $color-white;
+		}
+	}
+
+	textarea {
+		padding: 12px 15px;
+		border-radius: 10px;
+		background-color: $color-gray-100;
+		outline: none;
+		transition: 0.3s;
+		height: 100px;
+		resize: vertical;
+		font-family: "Avenir", Helvetica, Arial, sans-serif;
+		font-size: 13px;
+		border: 1px solid $color-gray-400;
+
+		&.error {
+			border: 1px solid $color-red-500;
+			background-color: $color-red-100;
+		}
+
+		&.success {
+			border: 1px solid $color-green-400;
+			background-color: $color-green-100;
+		}
+
+		&.white {
+			background-color: $color-white;
+		}
+	}
+}
+
+.color-main {
+	color: $color-primary;
+}
+
+.columns {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 -10px;
+
+	.column {
+		flex-grow: 1;
+		margin: 0 10px;
+		margin-bottom: 25px;
+
+		&:last-of-type {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.column {
+	// width: 100%;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 25px;
+
+	&:last-of-type {
+		margin-bottom: 0;
+	}
+
+	// span {
+	// 	font-size: 14px;
+	// 	margin-bottom: 5px;
+	// }
+}

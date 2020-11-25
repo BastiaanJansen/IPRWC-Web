@@ -1,0 +1,60 @@
+@import "/src/app/shared/variables";
+
+.product-card {
+    padding: 15px;
+    background-color: white;
+    box-shadow: 0px 5px 20px 1px rgba(0, 0, 0, 0.03);
+
+    header {
+        display: flex;
+
+        .title {
+            .name {
+                font-weight: bold;
+                font-size: 17px;
+            }
+
+            .price {
+                font-size: 25px;
+                font-weight: bold;
+
+                .euro-sign {
+                    font-size: 15px;
+                    color: gray;
+                }
+                
+                .euros {
+                    margin: 0 3px 0 5px;
+                }
+
+                .cents {
+                    font-size: 13px;
+                }
+            }
+        }
+
+        .add-to-card-container {
+            margin-left: auto;
+
+            .add-to-card-button {
+                border: none;
+                background-color: $color-primary;
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+
+                fa-icon {
+                    color: white;
+                }
+            }
+        }
+    }
+
+    img {
+        max-width: 100%;
+    }
+}

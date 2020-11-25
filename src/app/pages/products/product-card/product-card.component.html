@@ -1,0 +1,17 @@
+<div class="product-card">
+    <header>
+        <div class="title">
+            <p class="name">{{ product.name }}</p>
+            <p class="price">
+                <span class="euro-sign">€</span> <span class="euros">{{ getEuros() }}</span><span class="cents">{{ getCents() }}</span>
+            </p>
+        </div>
+
+        <div class="add-to-card-container">
+            <button class="add-to-card-button">
+                <fa-icon [icon]="icons.faPlus"></fa-icon>
+            </button>
+        </div>
+    </header>
+    <img [src]="product.image" [alt]="product.name">
+</div>

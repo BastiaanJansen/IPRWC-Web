@@ -1,0 +1,12 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+
+    ul {
+        li {
+            margin: 7px 0;
+            font-size: 14px;
+            color: rgb(80, 80, 80);
+        }
+    }
+}

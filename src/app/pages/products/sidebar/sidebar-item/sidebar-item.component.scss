@@ -1,0 +1,32 @@
+@import "/src/app/shared/variables";
+
+.item {
+    margin-bottom: 30px;
+
+    header {
+        display: flex;
+        padding-bottom: 7px;
+        border-bottom: 1px solid rgb(236, 236, 236);
+        cursor: pointer;
+        margin-bottom: 7px;
+        user-select: none;
+
+        h4 {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 12px;
+            color: $color-primary;
+        }
+
+        fa-icon {
+            color: gray;
+            font-size: 13px;
+            margin-left: auto;
+            transition: .3s;
+        }
+    }
+
+    &.closed fa-icon {
+        transform: rotate(180deg);
+    }
+}
