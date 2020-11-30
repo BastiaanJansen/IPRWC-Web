@@ -1,34 +1,45 @@
 @import "/src/app/shared/variables";
 
 .product-card {
-    padding: 15px;
-    background-color: white;
-    box-shadow: 0px 5px 20px 1px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover img {
+        transform: scale(1.03);
+    }
 
     header {
         display: flex;
+        width: 100%;
 
         .title {
+
             .name {
-                font-weight: bold;
                 font-size: 17px;
             }
 
             .price {
-                font-size: 25px;
+                font-size: 28px;
                 font-weight: bold;
+                display: flex;
+                align-items: baseline;
+                margin-top: 5px;
 
                 .euro-sign {
                     font-size: 15px;
                     color: gray;
                 }
-                
+
                 .euros {
-                    margin: 0 3px 0 5px;
+                    letter-spacing: -3px;
                 }
 
                 .cents {
-                    font-size: 13px;
+                    font-size: 15px;
+                    margin-bottom: auto;
+                    margin-top: 2px;
                 }
             }
         }
@@ -54,7 +65,34 @@
         }
     }
 
-    img {
-        max-width: 100%;
+    .main {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        width: 100%;
+
+        .icons {
+            z-index: 2;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+
+            li {
+                margin-top: 5px;
+
+                fa-icon {
+                    font-size: 23px;
+
+                    &.snowflake {
+                        color: rgb(71, 135, 255);
+                    }
+                }
+            }
+        }
+
+        img {
+            transition: .3s;
+            max-width: 200px;
+        }
     }
 }

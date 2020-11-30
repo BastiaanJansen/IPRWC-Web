@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { Product } from "./product.model";
+import { FindAllResponse } from "src/app/shared/find-all-response";
+import { ProductService } from "src/app/shared/product.service";
+import { Product } from "../../shared/product.model";
 
 @Component({
 	selector: "app-products",
@@ -7,41 +9,18 @@ import { Product } from "./product.model";
 	styleUrls: ["./products.component.scss"],
 })
 export class ProductsComponent implements OnInit {
-	products: Product[] = [
-		new Product(
-			"Chiquita Bananen",
-			1.99,
-			"https://static.ah.nl/image-optimization/static/product/AHI_43545237303430353637_1_200x200_JPG.JPG?options=399,q85"
-		),
-		new Product(
-			"Fuji appelen",
-			2.19,
-			"https://static.ah.nl/image-optimization/static/product/AHI_434d50313931333237_4_200x200_JPG.JPG?options=399,q85"
-		),
-		new Product(
-			"Pizza",
-			2.15,
-			"https://static.ah.nl/static/product/AHI_43545239363736373939_1_LowRes_JPG.JPG?options=399,q85"
-		),
+	products: Product[];
+	totalFound: number;
 
-		new Product(
-			"Chiquita Bananen",
-			1.99,
-			"https://static.ah.nl/image-optimization/static/product/AHI_43545237303430353637_1_200x200_JPG.JPG?options=399,q85"
-		),
-		new Product(
-			"Fuji appelen",
-			2.19,
-			"https://static.ah.nl/image-optimization/static/product/AHI_434d50313931333237_4_200x200_JPG.JPG?options=399,q85"
-		),
-		new Product(
-			"Pizza",
-			2.15,
-			"https://static.ah.nl/static/product/AHI_43545239363736373939_1_LowRes_JPG.JPG?options=399,q85"
-		),
-	];
+	constructor(private productService: ProductService) {}
 
-	constructor() {}
-
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		this.productService
+			.findAll()
+			.subscribe((products: FindAllResponse<Product[]>) => {
+				console.log(products);
+				this.products = products.result;
+				this.totalFound = products.count;
+			});
+	}
 }

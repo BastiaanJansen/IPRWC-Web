@@ -3,7 +3,7 @@
         <div class="title">
             <p class="name">{{ product.name }}</p>
             <p class="price">
-                <span class="euro-sign">€</span> <span class="euros">{{ getEuros() }}</span><span class="cents">{{ getCents() }}</span>
+               <span class="euros">{{ getEuros() }}.</span><span class="cents">{{ getCents() }}</span>
             </p>
         </div>
 
@@ -13,5 +13,17 @@
             </button>
         </div>
     </header>
-    <img [src]="product.image" [alt]="product.name">
+
+    <div class="main">
+        <ul class="icons">
+            <li>
+                <fa-icon [icon]="icons.faSnowflake" class="snowflake"></fa-icon>
+            </li>
+            <li>
+                <fa-icon [icon]="icons.faLeaf"></fa-icon>
+            </li>
+        </ul>
+
+        <img [src]="product.image" [alt]="product.name">
+    </div>
 </div>

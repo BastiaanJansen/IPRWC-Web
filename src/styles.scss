@@ -1,5 +1,6 @@
 @import "./app/shared/variables";
-@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+// @import url("https://fonts.googleapis.com/css?family=Open+Sans");
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 * {
 	padding: 0;
@@ -13,11 +14,12 @@ html {
 }
 
 body {
-	font-family: "Avenir", "Open Sans", Helvetica, Arial, sans-serif;
+	font-family: "Rubic", "Open Sans", Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	color: $color-black;
-	background-color: rgb(252, 252, 252);
+    // background-color: rgb(252, 252, 252);
+    background-color: white;
 	overflow-x: hidden;
 	height: 100%;
 	font-weight: normal;
