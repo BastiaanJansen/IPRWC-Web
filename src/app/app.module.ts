@@ -1,16 +1,17 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { NavComponent } from "./shared/ui/nav/nav.component";
+import { NavComponent } from "./shared/components/nav/nav.component";
 import { ProductsComponent } from "./webshop/products/products.component";
 import { ProductCardComponent } from "./webshop/products/product-card/product-card.component";
 import { SidebarComponent } from "./webshop/products/sidebar/sidebar.component";
 import { SidebarItemComponent } from "./webshop/products/sidebar/sidebar-item/sidebar-item.component";
-import { HeaderComponent } from "./shared/ui/header/header.component";
+import { HeaderComponent } from "./shared/components/header/header.component";
+import { APIInterceptor } from "./shared/api.interceptor";
 
 @NgModule({
 	declarations: [
@@ -28,7 +29,13 @@ import { HeaderComponent } from "./shared/ui/header/header.component";
 		AppRoutingModule,
 		FontAwesomeModule,
 	],
-	providers: [],
+	providers: [
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: APIInterceptor,
+			multi: true,
+		},
+	],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

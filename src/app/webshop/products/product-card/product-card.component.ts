@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { Product } from "../../../shared/product.model";
 
 import { faPlus, faSnowflake, faLeaf } from "@fortawesome/free-solid-svg-icons";
+import { Product } from "src/app/shared/product/product.model";
 
 @Component({
 	selector: "app-product-card",

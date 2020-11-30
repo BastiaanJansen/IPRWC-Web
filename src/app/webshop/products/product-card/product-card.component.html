@@ -2,9 +2,7 @@
     <header>
         <div class="title">
             <p class="name">{{ product.name }}</p>
-            <p class="price">
-               <span class="euros">{{ getEuros() }}.</span><span class="cents">{{ getCents() }}</span>
-            </p>
+            <p class="weight">{{ product.weight }}</p>
         </div>
 
         <div class="add-to-card-container">
@@ -15,14 +13,18 @@
     </header>
 
     <div class="main">
-        <ul class="icons">
+        <!-- <ul class="icons">
             <li>
                 <fa-icon [icon]="icons.faSnowflake" class="snowflake"></fa-icon>
             </li>
             <li>
                 <fa-icon [icon]="icons.faLeaf"></fa-icon>
             </li>
-        </ul>
+        </ul> -->
+
+        <p class="price">
+            <span class="euros">{{ getEuros() }}.</span><span class="cents">{{ getCents() }}</span>
+        </p>
 
         <img [src]="product.image" [alt]="product.name">
     </div>

@@ -5,10 +5,8 @@
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-
-    &:hover img {
-        transform: scale(1.03);
-    }
+    height: 100%;
+    max-width: 400px;
 
     header {
         display: flex;
@@ -20,27 +18,10 @@
                 font-size: 17px;
             }
 
-            .price {
-                font-size: 28px;
+            .weight {
+                color: $color-gray;
                 font-weight: bold;
-                display: flex;
-                align-items: baseline;
-                margin-top: 5px;
-
-                .euro-sign {
-                    font-size: 15px;
-                    color: gray;
-                }
-
-                .euros {
-                    letter-spacing: -3px;
-                }
-
-                .cents {
-                    font-size: 15px;
-                    margin-bottom: auto;
-                    margin-top: 2px;
-                }
+                margin: 5px 0;
             }
         }
 
@@ -57,6 +38,7 @@
                 justify-content: center;
                 align-items: center;
                 cursor: pointer;
+                margin-left: 10px;
 
                 fa-icon {
                     color: white;
@@ -70,6 +52,34 @@
         justify-content: center;
         position: relative;
         width: 100%;
+        margin-top: auto;
+
+        .price {
+            font-size: 32px;
+            font-weight: bold;
+            display: flex;
+            align-items: baseline;
+            margin-top: 5px;
+            z-index: 2;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+
+            .euro-sign {
+                font-size: 15px;
+                color: gray;
+            }
+
+            .euros {
+                letter-spacing: -3px;
+            }
+
+            .cents {
+                font-size: 15px;
+                margin-bottom: auto;
+                margin-top: 2px;
+            }
+        }
 
         .icons {
             z-index: 2;
@@ -91,8 +101,8 @@
         }
 
         img {
-            transition: .3s;
             max-width: 200px;
+            width: 100%;
         }
     }
 }

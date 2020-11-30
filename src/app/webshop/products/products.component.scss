@@ -5,12 +5,15 @@
 }
 
 main {
+    margin-bottom: 50px;
+
     .products {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         grid-auto-rows: 1fr;
         grid-column-gap: 30px;
         grid-row-gap: 40px;
+        align-items: stretch;
     }
 }
 

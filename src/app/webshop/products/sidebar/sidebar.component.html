@@ -1,26 +1,21 @@
 <div class="sidebar">
-    <app-sidebar-item name="Producten">
-
+    <app-sidebar-item name="categorieën">
+        <ul>
+            <li *ngFor="let category of categories" (click)="filterOnCategory(category)" [class]="{ 'active': getQueryParams().category == category.id }">{{ category.name }} <span>({{ category.productCount }})</span></li>
+        </ul>
     </app-sidebar-item>
 
     <app-sidebar-item name="Nutri-Score">
         <ul>
-            <li>
-                Score A
-            </li>
-            <li>
-                Score B
+            <li *ngFor="let score of nutriScores" (click)="filterOnNutriScore(score)" [class]="{ 'active': getQueryParams().nutriScore == score }">
+                Score {{ score }}
             </li>
         </ul>
     </app-sidebar-item>
 
     <app-sidebar-item name="Merk">
         <ul>
-            <li>ABC</li>
-            <li>Argal</li>
-            <li>Doritos</li>
-            <li>Dr. Oetker</li>
-            <li>Go-Tan</li>
+            <li *ngFor="let brand of brands" (click)="filterOnBrand(brand)" [class]="{ 'active': getQueryParams().brand == brand.id }">{{ brand.name }} <span>({{ brand.productCount }})</span></li>
         </ul>
     </app-sidebar-item>
 
