@@ -1,14 +1,12 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
-import { Brand } from "src/app/shared/brand/brand.model";
-import { BrandService } from "src/app/shared/brand/brand.service";
+import { Component, OnInit } from "@angular/core";
+import { Brand } from "src/app/brand/brand.model";
 import { FindAllResponse } from "src/app/shared/find-all-response";
 import { NutriScore } from "src/app/shared/nutri-score.model";
-import { CategoryService } from "src/app/shared/category/category.service";
-import { Category } from "src/app/shared/category/category.model";
-import { TagService } from "src/app/shared/tag/tag.service";
-import { Tag } from "src/app/shared/tag/tag.model";
-import { ActivatedRoute, Params, Router } from "@angular/router";
+import { Category } from "src/app/category/category.model";
+import { ActivatedRoute, Params } from "@angular/router";
 import { ProductsFilterService } from "../products-filter.service";
+import { BrandService } from "src/app/brand/brand.service";
+import { CategoryService } from "src/app/category/category.service";
 
 @Component({
 	selector: "app-sidebar",
@@ -19,12 +17,10 @@ export class SidebarComponent implements OnInit {
 	categories: Category[];
 	brands: Brand[];
 	nutriScores: NutriScore[] = Object.values(NutriScore);
-	tags: Tag[];
 
 	constructor(
 		private categoryService: CategoryService,
 		private brandService: BrandService,
-		private tagService: TagService,
 		private route: ActivatedRoute,
 		private productsFilterService: ProductsFilterService
 	) {}
@@ -41,10 +37,6 @@ export class SidebarComponent implements OnInit {
 			.subscribe((brands: FindAllResponse<Brand>) => {
 				this.brands = brands.result;
 			});
-
-		this.tagService.findAll().subscribe((tags: FindAllResponse<Tag>) => {
-			this.tags = tags.result;
-		});
 	}
 
 	getQueryParams(): Params {

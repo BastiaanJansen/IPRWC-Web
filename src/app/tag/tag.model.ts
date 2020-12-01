@@ -1,4 +1,4 @@
-import { Model } from "../model";
+import { Model } from "../shared/model";
 
 export class Tag extends Model {
 	name: string;

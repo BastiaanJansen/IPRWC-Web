@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { FindAllResponse } from "../find-all-response";
+import { FindAllResponse } from "../shared/find-all-response";
 import { FilterProductDTO } from "./filter-product.dto";
 import { Product } from "./product.model";
 

@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Subject } from "rxjs";
-import { FilterProductDTO } from "src/app/shared/product/filter-product.dto";
+import { FilterProductDTO } from "src/app/product/filter-product.dto";
 
 @Injectable({ providedIn: "root" })
 export class ProductsFilterService {

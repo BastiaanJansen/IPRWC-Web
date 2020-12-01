@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { FindAllResponse } from "../shared/find-all-response";
 import { Category } from "./category.model";
-import { FindAllResponse } from "../find-all-response";
 
 @Injectable({ providedIn: "root" })
 export class CategoryService {

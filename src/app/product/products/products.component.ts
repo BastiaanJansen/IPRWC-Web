@@ -2,10 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { FindAllResponse } from "src/app/shared/find-all-response";
 import { NutriScore } from "src/app/shared/nutri-score.model";
-import { FilterProductDTO } from "src/app/shared/product/filter-product.dto";
-import { ProductService } from "src/app/shared/product/product.service";
-import { Product } from "../../shared/product/product.model";
+import { FilterProductDTO } from "src/app/product/filter-product.dto";
 import { ProductsFilterService } from "./products-filter.service";
+import { Product } from "../product.model";
+import { ProductService } from "../product.service";
 
 @Component({
 	selector: "app-products",
