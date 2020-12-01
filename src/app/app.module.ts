@@ -1,6 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -12,6 +13,7 @@ import { SidebarComponent } from "./webshop/products/sidebar/sidebar.component";
 import { SidebarItemComponent } from "./webshop/products/sidebar/sidebar-item/sidebar-item.component";
 import { HeaderComponent } from "./shared/components/header/header.component";
 import { APIInterceptor } from "./shared/api.interceptor";
+import { LoginComponent } from "./shared/login/login.component";
 
 @NgModule({
 	declarations: [
@@ -22,12 +24,14 @@ import { APIInterceptor } from "./shared/api.interceptor";
 		SidebarComponent,
 		SidebarItemComponent,
 		HeaderComponent,
+		LoginComponent,
 	],
 	imports: [
 		BrowserModule,
 		HttpClientModule,
 		AppRoutingModule,
 		FontAwesomeModule,
+		BrowserAnimationsModule,
 	],
 	providers: [
 		{

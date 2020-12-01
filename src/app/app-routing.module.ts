@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
+import { LoginComponent } from "./shared/login/login.component";
 import { ProductsComponent } from "./webshop/products/products.component";
 
 const routes: Routes = [
@@ -8,12 +9,12 @@ const routes: Routes = [
 		component: ProductsComponent,
 	},
 	{
-		path: "card",
+		path: "cart",
 		component: ProductsComponent,
 	},
 	{
 		path: "login",
-		component: ProductsComponent,
+		component: LoginComponent,
 	},
 ];
 

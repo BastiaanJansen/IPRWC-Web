@@ -8,6 +8,7 @@ import { Category } from "src/app/shared/category/category.model";
 import { TagService } from "src/app/shared/tag/tag.service";
 import { Tag } from "src/app/shared/tag/tag.model";
 import { ActivatedRoute, Params, Router } from "@angular/router";
+import { ProductsFilterService } from "../products-filter.service";
 
 @Component({
 	selector: "app-sidebar",
@@ -25,7 +26,7 @@ export class SidebarComponent implements OnInit {
 		private brandService: BrandService,
 		private tagService: TagService,
 		private route: ActivatedRoute,
-		private router: Router
+		private productsFilterService: ProductsFilterService
 	) {}
 
 	ngOnInit(): void {
@@ -46,50 +47,47 @@ export class SidebarComponent implements OnInit {
 		});
 	}
 
-	private update(params: Params): void {
-		this.router.navigate([], {
-			relativeTo: this.route,
-			queryParams: params,
-		});
-	}
-
 	getQueryParams(): Params {
 		return this.route.snapshot.queryParams;
 	}
 
 	filterOnNutriScore(score: NutriScore): void {
 		const params: Params = this.route.snapshot.queryParams;
-		let newParams: Params;
 
 		if (params.nutriScore == score) {
-			newParams = { ...params };
-			delete newParams.nutriScore;
-		} else newParams = { ...params, nutriScore: score };
+			this.productsFilterService.deleteFilter("nutriScore");
+			return;
+		}
 
-		this.update(newParams);
+		this.productsFilterService.addFilter("nutriScore", score);
 	}
 
 	filterOnCategory(category: Category): void {
 		const params: Params = this.route.snapshot.queryParams;
-		let newParams: Params;
 
 		if (params.category == category.id) {
-			newParams = { ...params };
-			delete newParams.category;
-		} else newParams = { ...params, category: category.id };
+			this.productsFilterService.deleteFilter("category");
+			return;
+		}
 
-		this.update(newParams);
+		this.productsFilterService.addFilter(
+			"category",
+			category.id.toString()
+		);
 	}
 
 	filterOnBrand(brand: Brand): void {
 		const params: Params = this.route.snapshot.queryParams;
-		let newParams: Params;
 
 		if (params.brand == brand.id) {
-			newParams = { ...params };
-			delete newParams.brand;
-		} else newParams = { ...params, brand: brand.id };
+			this.productsFilterService.deleteFilter("brand");
+			return;
+		}
 
-		this.update(newParams);
+		this.productsFilterService.addFilter("brand", brand.id.toString());
+	}
+
+	isFilter(key: string, value: any) {
+		return this.productsFilterService.isFilter(key, value.toString());
 	}
 }

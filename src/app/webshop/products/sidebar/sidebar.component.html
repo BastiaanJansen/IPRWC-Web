@@ -1,13 +1,13 @@
 <div class="sidebar">
     <app-sidebar-item name="categorieën">
         <ul>
-            <li *ngFor="let category of categories" (click)="filterOnCategory(category)" [class]="{ 'active': getQueryParams().category == category.id }">{{ category.name }} <span>({{ category.productCount }})</span></li>
+            <li *ngFor="let category of categories" (click)="filterOnCategory(category)" [class]="{ 'active': isFilter('category', category.id) }">{{ category.name }} <span>({{ category.productCount }})</span></li>
         </ul>
     </app-sidebar-item>
 
     <app-sidebar-item name="Nutri-Score">
         <ul>
-            <li *ngFor="let score of nutriScores" (click)="filterOnNutriScore(score)" [class]="{ 'active': getQueryParams().nutriScore == score }">
+            <li *ngFor="let score of nutriScores" (click)="filterOnNutriScore(score)" [class]="{ 'active': isFilter('nutriScore', score) }">
                 Score {{ score }}
             </li>
         </ul>
@@ -15,7 +15,7 @@
 
     <app-sidebar-item name="Merk">
         <ul>
-            <li *ngFor="let brand of brands" (click)="filterOnBrand(brand)" [class]="{ 'active': getQueryParams().brand == brand.id }">{{ brand.name }} <span>({{ brand.productCount }})</span></li>
+            <li *ngFor="let brand of brands" (click)="filterOnBrand(brand)" [class]="{ 'active': isFilter('brand', brand.id ) }">{{ brand.name }} <span>({{ brand.productCount }})</span></li>
         </ul>
     </app-sidebar-item>
 

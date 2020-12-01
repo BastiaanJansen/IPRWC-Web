@@ -10,17 +10,10 @@ export class ProductService {
 	constructor(private http: HttpClient) {}
 
 	findAll(filter?: FilterProductDTO): Observable<FindAllResponse<Product>> {
-		const params = {};
-
-		for (const key in filter) {
-			const value = filter[key];
-			if (value) params[key] = value;
-		}
-
 		const observable: Observable<FindAllResponse<Product>> = this.http.get<
 			FindAllResponse<Product>
 		>("/products", {
-			params,
+			params: filter as HttpParams,
 		});
 
 		return observable;

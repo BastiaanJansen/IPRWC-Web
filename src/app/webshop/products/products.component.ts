@@ -1,9 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { FindAllResponse } from "src/app/shared/find-all-response";
+import { NutriScore } from "src/app/shared/nutri-score.model";
 import { FilterProductDTO } from "src/app/shared/product/filter-product.dto";
 import { ProductService } from "src/app/shared/product/product.service";
 import { Product } from "../../shared/product/product.model";
+import { ProductsFilterService } from "./products-filter.service";
 
 @Component({
 	selector: "app-products",
@@ -13,21 +15,33 @@ import { Product } from "../../shared/product/product.model";
 export class ProductsComponent implements OnInit {
 	products: Product[];
 	totalFound: number;
+	filter: FilterProductDTO;
 
 	constructor(
 		private productService: ProductService,
 		private route: ActivatedRoute,
-		private router: Router
+		private router: Router,
+		private productFilterService: ProductsFilterService
 	) {}
 
 	ngOnInit(): void {
-		this.findAllProducts();
-		this.route.queryParams.subscribe((params: Params) => {
+		this.route.queryParams.subscribe(() => {
 			this.findAllProducts();
 		});
+
+		this.productFilterService.filterSubject.subscribe(
+			(filter: FilterProductDTO) => {
+				this.filter = filter;
+
+				this.router.navigate([], {
+					relativeTo: this.route,
+					queryParams: filter,
+				});
+			}
+		);
 	}
 
-	findAllProducts() {
+	findAllProducts(): void {
 		this.productService
 			.findAll(this.route.snapshot.queryParams)
 			.subscribe((products: FindAllResponse<Product>) => {
