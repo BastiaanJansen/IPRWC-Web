@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { FindAllResponse } from "src/app/shared/find-all-response";
 import { NutriScore } from "src/app/shared/nutri-score.model";
@@ -6,16 +6,17 @@ import { FilterProductDTO } from "src/app/product/filter-product.dto";
 import { ProductsFilterService } from "./products-filter.service";
 import { Product } from "../product.model";
 import { ProductService } from "../product.service";
+import { Subscription } from "rxjs";
 
 @Component({
 	selector: "app-products",
 	templateUrl: "./products.component.html",
 	styleUrls: ["./products.component.scss"],
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
 	products: Product[];
 	totalFound: number;
-	filter: FilterProductDTO;
+	filterSubjectSubscription: Subscription;
 
 	constructor(
 		private productService: ProductService,
@@ -29,10 +30,8 @@ export class ProductsComponent implements OnInit {
 			this.findAllProducts();
 		});
 
-		this.productFilterService.filterSubject.subscribe(
+		this.filterSubjectSubscription = this.productFilterService.filterSubject.subscribe(
 			(filter: FilterProductDTO) => {
-				this.filter = filter;
-
 				this.router.navigate([], {
 					relativeTo: this.route,
 					queryParams: filter,
@@ -48,5 +47,9 @@ export class ProductsComponent implements OnInit {
 				this.products = products.result;
 				this.totalFound = products.count;
 			});
+	}
+
+	ngOnDestroy(): void {
+		this.filterSubjectSubscription.unsubscribe();
 	}
 }
