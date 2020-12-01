@@ -7,6 +7,8 @@ import { SidebarItemComponent } from "./products/sidebar/sidebar-item/sidebar-it
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { HeaderComponent } from "../shared/components/header/header.component";
 import { SharedModule } from "../shared/shared.module";
+import { RouterModule } from "@angular/router";
+import { ProductRoutingModule } from "./product-routing.module";
 
 @NgModule({
 	declarations: [
@@ -15,7 +17,13 @@ import { SharedModule } from "../shared/shared.module";
 		SidebarComponent,
 		SidebarItemComponent,
 	],
-	imports: [CommonModule, FontAwesomeModule, SharedModule],
+	imports: [
+		RouterModule,
+		ProductRoutingModule,
+		CommonModule,
+		FontAwesomeModule,
+		SharedModule,
+	],
 	exports: [ProductsComponent],
 })
 export class ProductModule {}
