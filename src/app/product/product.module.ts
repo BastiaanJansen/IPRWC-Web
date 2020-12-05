@@ -9,6 +9,10 @@ import { HeaderComponent } from "../shared/components/header/header.component";
 import { SharedModule } from "../shared/shared.module";
 import { RouterModule } from "@angular/router";
 import { ProductRoutingModule } from "./product-routing.module";
+import { ProductDetailComponent } from "./product-detail/product-detail.component";
+import { ProductPriceComponent } from "./product-price/product-price.component";
+import { ProductsFilterService } from "./products/products-filter.service";
+import { ProductDetailRecommendedComponent } from './product-detail/product-detail-recommended/product-detail-recommended.component';
 
 @NgModule({
 	declarations: [
@@ -16,6 +20,9 @@ import { ProductRoutingModule } from "./product-routing.module";
 		ProductCardComponent,
 		SidebarComponent,
 		SidebarItemComponent,
+		ProductDetailComponent,
+		ProductPriceComponent,
+		ProductDetailRecommendedComponent,
 	],
 	imports: [
 		RouterModule,
@@ -24,6 +31,7 @@ import { ProductRoutingModule } from "./product-routing.module";
 		FontAwesomeModule,
 		SharedModule,
 	],
+	providers: [ProductsFilterService],
 	exports: [ProductsComponent],
 })
 export class ProductModule {}

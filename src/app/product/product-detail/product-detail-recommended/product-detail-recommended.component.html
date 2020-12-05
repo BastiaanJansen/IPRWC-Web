@@ -1,0 +1,12 @@
+<div *ngIf="products?.result.length > 0">
+    <h3>{{ title }} 
+        <span *ngIf="areMoreProducts()">
+            <a routerLink="/products" [queryParams]="linkQueryParams">Meer <fa-icon [icon]="icons.faChevronRight"></fa-icon></a>
+        </span>
+    </h3>
+    <ul>
+        <li *ngFor="let product of products.result">
+            <app-product-card [product]="product"></app-product-card>
+        </li>
+    </ul>
+</div>

@@ -20,12 +20,4 @@ export class ProductCardComponent implements OnInit {
 	constructor() {}
 
 	ngOnInit(): void {}
-
-	getEuros(): string {
-		return this.product.price.toString().split(".")[0];
-	}
-
-	getCents(): string {
-		return this.product.price.toString().split(".")[1];
-	}
 }

@@ -1,0 +1,35 @@
+<div class="container" *ngIf="product">
+    <header>
+        <img [src]="product.image" [alt]="product.name">
+        <div>
+            <div id="product-title-container">
+                <h1>{{ product.name }}</h1>
+                <ul id="product-header-info-list">
+                    <li>{{ product.category.name }}</li>
+                    <li>{{ product.brand.name }}</li>
+                    <li>{{ product.weight }}</li>
+                </ul>
+            </div>
+
+            <p class="description">{{ product.description }}</p>
+
+            <hr>
+
+            <div id="product-price-container">
+                <app-product-price class="price" [price]="product.price" [size]="50"></app-product-price>
+                <button class="button primary"><fa-icon [icon]="icons.faPlus"></fa-icon> Voeg toe</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="product-info-container">
+
+        </section>
+
+        <aside class="product-right-bar">
+           <app-product-detail-recommended [products]="brandProducts" [currentProduct]="product" title="Meer van {{ product.brand.name }}" [linkQueryParams]="{ brand: product.brand.id }"></app-product-detail-recommended>
+           <app-product-detail-recommended [products]="categoryProducts" [currentProduct]="product" title="Soortgelijke producten" [linkQueryParams]="{ category: product.category.id }"></app-product-detail-recommended>
+        </aside>
+    </main>
+</div>

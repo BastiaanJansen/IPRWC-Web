@@ -1,20 +1,23 @@
-import { Injectable, OnInit } from "@angular/core";
+import { Injectable, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { Subject } from "rxjs";
+import { Subject, Subscription } from "rxjs";
 import { FilterProductDTO } from "src/app/product/filter-product.dto";
 
-@Injectable({ providedIn: "root" })
-export class ProductsFilterService {
+@Injectable()
+export class ProductsFilterService implements OnDestroy {
 	filter: FilterProductDTO = new FilterProductDTO();
 	filterSubject: Subject<FilterProductDTO> = new Subject<FilterProductDTO>();
+	queryParamsSubscription: Subscription;
 
 	constructor(private route: ActivatedRoute) {
-		const params: Params = this.route.snapshot.queryParams;
-		for (const key in params) {
-			this.filter[key] = params[key];
-		}
+		this.queryParamsSubscription = this.route.queryParams.subscribe(
+			(params: Params) => {
+				this.filter = {};
+				for (const key in params) this.filter[key] = params[key];
 
-		this.filterSubject.next(this.filter);
+				this.filterSubject.next(this.filter);
+			}
+		);
 	}
 
 	addFilter(key: string, value: string): void {
@@ -36,5 +39,9 @@ export class ProductsFilterService {
 
 	isFilter(key: string, value: string) {
 		return this.filter[key] === value;
+	}
+
+	ngOnDestroy(): void {
+		this.queryParamsSubscription.unsubscribe();
 	}
 }

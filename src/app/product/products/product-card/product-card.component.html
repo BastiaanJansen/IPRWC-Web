@@ -1,4 +1,4 @@
-<div class="product-card">
+<a [routerLink]="['/product', product.id]" class="product-card">
     <header>
         <div class="title">
             <p class="name">{{ product.name }}</p>
@@ -22,10 +22,8 @@
             </li>
         </ul> -->
 
-        <p class="price">
-            <span class="euros">{{ getEuros() }}.</span><span class="cents">{{ getCents() }}</span>
-        </p>
+        <app-product-price class="price" [price]="product.price"></app-product-price>
 
         <img [src]="product.image" [alt]="product.name">
     </div>
-</div>
+</a>
