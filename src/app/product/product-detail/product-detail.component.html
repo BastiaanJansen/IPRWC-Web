@@ -17,7 +17,8 @@
 
             <div id="product-price-container">
                 <app-product-price class="price" [price]="product.price" [size]="50"></app-product-price>
-                <button class="button primary"><fa-icon [icon]="icons.faPlus"></fa-icon> Voeg toe</button>
+                <button (click)="addToCart()" class="button primary"><fa-icon [icon]="icons.faPlus"></fa-icon> Voeg toe</button>
+                <p *ngIf="cartItem">{{ cartItem.quantity }} in winkelmandje</p>
             </div>
         </div>
     </header>

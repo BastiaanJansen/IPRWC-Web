@@ -39,10 +39,26 @@ nav {
 
     ul.personal {
         margin-left: auto;
-
-        fa-icon {
+        
+        #cart {
             cursor: pointer;
-            font-size: 20px;
+            display: flex;
+            justify-content: center;
+
+            fa-icon {
+                font-size: 20px;
+            }
+    
+            span.items-in-cart {
+                background-color: $color-primary;
+                padding: 0 13px;
+                font-size: 11px;
+                color: $color-white;
+                border-radius: 20px;
+                margin-left: 10px;
+                display: flex;
+                align-items: center;
+            }
         }
     }
 }

@@ -1,6 +1,13 @@
 import { Component, Input, OnInit } from "@angular/core";
 
-import { faPlus, faSnowflake, faLeaf } from "@fortawesome/free-solid-svg-icons";
+import {
+	faPlus,
+	faSnowflake,
+	faLeaf,
+	faShoppingBasket,
+} from "@fortawesome/free-solid-svg-icons";
+import { CartItem } from "src/app/cart/cart-item.model";
+import { CartService } from "src/app/cart/cart.service";
 import { Product } from "../../product.model";
 
 @Component({
@@ -13,11 +20,20 @@ export class ProductCardComponent implements OnInit {
 		faPlus: faPlus,
 		faSnowflake: faSnowflake,
 		faLeaf: faLeaf,
+		faShoppingBasket: faShoppingBasket,
 	};
 
 	@Input() product: Product;
+	cartItem?: CartItem;
 
-	constructor() {}
+	constructor(private cartService: CartService) {}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		this.cartItem = this.cartService.find(this.product);
+	}
+
+	addToCart(): void {
+		const item = this.cartService.addToCart(this.product);
+		this.cartItem = item;
+	}
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { faShoppingBasket } from "@fortawesome/free-solid-svg-icons";
+import { CartItem } from "src/app/cart/cart-item.model";
+import { CartService } from "src/app/cart/cart.service";
 
 @Component({
 	selector: "app-nav",
@@ -7,11 +9,17 @@ import { faShoppingBasket } from "@fortawesome/free-solid-svg-icons";
 	styleUrls: ["./nav.component.scss"],
 })
 export class NavComponent implements OnInit {
+	cartItems: CartItem[];
+
 	icons = {
 		faShoppingBasket: faShoppingBasket,
 	};
 
-	constructor() {}
+	constructor(private cartService: CartService) {}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		this.cartService.itemsSubject.subscribe((items: CartItem[]) => {
+			this.cartItems = items;
+		});
+	}
 }

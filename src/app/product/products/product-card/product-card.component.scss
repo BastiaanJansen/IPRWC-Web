@@ -7,6 +7,10 @@
     cursor: pointer;
     height: 100%;
 
+    &:focus {
+        outline: none;
+    }
+
     header {
         display: flex;
         width: 100%;
@@ -26,6 +30,10 @@
 
         .add-to-card-container {
             margin-left: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-left: 20px;
 
             .add-to-card-button {
                 border: none;
@@ -37,10 +45,29 @@
                 justify-content: center;
                 align-items: center;
                 cursor: pointer;
-                margin-left: 10px;
 
                 fa-icon {
                     color: white;
+                }
+            }
+
+            .shopping-cart-status {
+                display: flex;
+                color: $color-primary;
+                width: 100%;
+                justify-content: center;
+                align-items: center;
+                margin-top: 10px;
+
+                fa-icon {
+                    font-size: 15px;
+                }
+
+                p {
+                    color: $color-primary;
+                    font-size: 12px;
+                    margin-left: 3px;
+                    font-weight: bold;
                 }
             }
         }
