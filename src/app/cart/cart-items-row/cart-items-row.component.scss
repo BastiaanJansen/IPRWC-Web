@@ -1,0 +1,45 @@
+@import "/src/app/shared/variables";
+
+.cart-item {
+    padding: 20px 15px;
+    border-bottom: 1px solid $color-gray-200;
+    display: flex;
+    align-items: center;
+
+    img {
+        max-width: 70px;
+        margin-right: 10px;
+    }
+
+    .title {
+        margin-bottom: 5px;
+    }
+
+    p.info {
+        color: $color-gray;
+        font-weight: bold;
+    }
+
+    .item-options {
+        margin-left: auto;
+
+        .delete-button {
+            border: 1px solid transparent;
+            background: none;
+            color: $color-gray;
+            font-size: 1em;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            transition: .3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &:hover {
+                border: 1px solid $color-gray-400;
+                color: $color-red-500;
+            }
+        }
+    }
+}

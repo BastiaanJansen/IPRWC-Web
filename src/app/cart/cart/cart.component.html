@@ -1,0 +1,27 @@
+<div class="container">
+    <h2>Winkelmandje</h2>
+
+    <div class="cart-items-container">
+        <ul id="cart-items" *ngIf="cartItems.length > 0; else noItems">
+            <li *ngFor="let item of cartItems">
+                <app-cart-items-row [item]="item" (remove)="removeItemFromCart(item)"></app-cart-items-row>
+            </li>
+        </ul>
+    
+        <ng-template #noItems>
+            <div class="no-items-container">
+                <fa-icon [icon]="icons.faAppleAlt"></fa-icon>
+                <p>U hebt nog geen producten in uw winkelmandje gezet</p>
+            </div>
+        </ng-template>
+    </div>
+
+    <footer>
+        <a [routerLink]="['/products']" class="button secondary">
+            Vind producten
+        </a>
+        <button class="button primary">
+            Afrekenen
+        </button>
+    </footer>
+</div>

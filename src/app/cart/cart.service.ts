@@ -8,7 +8,7 @@ import { CartItem } from "./cart-item.model";
 	providedIn: "root",
 })
 export class CartService {
-	items: CartItem[] = [];
+	private items: CartItem[] = [];
 	itemsSubject: BehaviorSubject<CartItem[]>;
 
 	constructor(private http: HttpClient) {
@@ -38,6 +38,13 @@ export class CartService {
 		const item = this.find(product);
 		item.quantity = newQuantity;
 		this.itemsSubject.next(this.items);
+	}
+
+	remove(cartItem: CartItem): void {
+		const index = this.items.findIndex(
+			(item) => item.product == cartItem.product
+		);
+		this.items.splice(index, 1);
 	}
 
 	find(product: Product): CartItem {

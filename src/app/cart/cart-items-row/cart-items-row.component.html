@@ -1,0 +1,13 @@
+<div class="cart-item">
+    <img [src]="item.product.image" [alt]="item.product.name">
+    <div>
+        <p class="title">{{ item.product.name }}</p>
+        <p class="info">{{ item.product.weight }}</p>
+    </div>
+
+    <div class="item-options">
+        <button class="delete-button" (click)="removeFromCart()">
+            <fa-icon [icon]="icons.faTrashAlt"></fa-icon>
+        </button>
+    </div>
+</div>

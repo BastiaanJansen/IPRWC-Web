@@ -5,12 +5,10 @@
 * {
 	padding: 0;
 	margin: 0;
-	// box-sizing: border-box;
 }
 
 html {
-	height: 100%;
-	// -ms-overflow-style: -ms-autohiding-scrollbar;
+	min-height: 100vh;
 }
 
 body {
@@ -18,7 +16,6 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	color: $color-black;
-    // background-color: rgb(252, 252, 252);
     background-color: white;
 	overflow-x: hidden;
 	height: 100%;
@@ -113,9 +110,13 @@ hr {
 	}
 }
 
+button {
+    cursor: pointer;
+}
+
 .button {
 	cursor: pointer;
-	padding: 10px 20px;
+	padding: 15px 25px;
 	border-radius: $border-radius;
 	transition: 0.3s;
 	font-weight: 500;
