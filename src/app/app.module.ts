@@ -11,6 +11,7 @@ import { APIInterceptor } from "./shared/api.interceptor";
 import { ProductModule } from "./product/product.module";
 import { SharedModule } from "./shared/shared.module";
 import { AuthModule } from "./auth/auth.module";
+import { CartModule } from "./cart/cart.module";
 
 @NgModule({
 	declarations: [AppComponent, NavComponent],
@@ -23,6 +24,7 @@ import { AuthModule } from "./auth/auth.module";
 		SharedModule,
 		ProductModule,
 		AuthModule,
+		CartModule,
 	],
 	providers: [
 		{
