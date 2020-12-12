@@ -27,17 +27,10 @@ export class CartService {
 		}
 
 		this.itemsSubject.next(this.items);
+
+		this.saveItemsInLocalStorage();
+
 		return this.find(product);
-	}
-
-	private getQuantity(product: Product): number {
-		return this.find(product).quantity;
-	}
-
-	private changeQuantity(product: Product, newQuantity: number): void {
-		const item = this.find(product);
-		item.quantity = newQuantity;
-		this.itemsSubject.next(this.items);
 	}
 
 	remove(cartItem: CartItem): void {
@@ -45,6 +38,7 @@ export class CartService {
 			(item) => item.product == cartItem.product
 		);
 		this.items.splice(index, 1);
+		this.saveItemsInLocalStorage();
 	}
 
 	find(product: Product): CartItem {
@@ -53,13 +47,38 @@ export class CartService {
 		);
 	}
 
-	addQuantity(product: Product): void {
+	changeQuantity(product: Product, newQuantity: number): void {
+		const item = this.find(product);
+		item.quantity = newQuantity;
+		this.itemsSubject.next(this.items);
+		this.saveItemsInLocalStorage();
+	}
+
+	setFromLocalStorage(): void {
+		const items = JSON.parse(localStorage.getItem("cartItems"));
+		if (items) {
+			this.items = items;
+			this.itemsSubject.next(this.items);
+		}
+	}
+
+	getTotalItems(): number {
+		return this.items.reduce(
+			(total: number, item: CartItem) => total + item.quantity,
+			0
+		);
+	}
+
+	private addQuantity(product: Product): void {
 		const currentQuantity = this.getQuantity(product);
 		this.changeQuantity(product, currentQuantity + 1);
 	}
 
-	subtractQuantity(product: Product): void {
-		const currentQuantity = this.getQuantity(product);
-		this.changeQuantity(product, currentQuantity - 1);
+	private getQuantity(product: Product): number {
+		return this.find(product).quantity;
+	}
+
+	private saveItemsInLocalStorage(): void {
+		localStorage.setItem("cartItems", JSON.stringify(this.items));
 	}
 }

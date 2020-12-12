@@ -5,9 +5,17 @@
         <p class="info">{{ item.product.weight }}</p>
     </div>
 
-    <div class="item-options">
-        <button class="delete-button" (click)="removeFromCart()">
-            <fa-icon [icon]="icons.faTrashAlt"></fa-icon>
-        </button>
+    <div class="right-items">
+        <div class="price-container">
+            <app-product-price [price]="totalPrice()"></app-product-price>
+        </div>
+    
+        <div class="item-options">
+            <button class="delete-button" (click)="removeFromCart()">
+                <fa-icon [icon]="icons.faTrashAlt"></fa-icon>
+            </button>
+    
+            <app-stepper [value]="item.quantity" (change)="changeQuantity($event)"></app-stepper>
+        </div>
     </div>
 </div>

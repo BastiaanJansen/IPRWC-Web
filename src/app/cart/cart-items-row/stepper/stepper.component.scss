@@ -1,0 +1,29 @@
+@import "/src/app/shared/variables";
+
+.stepper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    align-items: center;
+    justify-content: center;
+
+    .control {
+        width: 30px;
+        height: 25px;
+        color: $color-white;
+        background-color: $color-primary;
+        border-radius: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 10px;
+        cursor: pointer;
+        border: none;
+    }
+
+    .value {
+        text-align: center;
+        font-weight: bold;
+        font-size: 17px;
+    }
+}

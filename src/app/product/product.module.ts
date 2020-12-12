@@ -12,7 +12,7 @@ import { ProductRoutingModule } from "./product-routing.module";
 import { ProductDetailComponent } from "./product-detail/product-detail.component";
 import { ProductPriceComponent } from "./product-price/product-price.component";
 import { ProductsFilterService } from "./products/products-filter.service";
-import { ProductDetailRecommendedComponent } from './product-detail/product-detail-recommended/product-detail-recommended.component';
+import { ProductDetailRecommendedComponent } from "./product-detail/product-detail-recommended/product-detail-recommended.component";
 
 @NgModule({
 	declarations: [
@@ -32,6 +32,6 @@ import { ProductDetailRecommendedComponent } from './product-detail/product-deta
 		SharedModule,
 	],
 	providers: [ProductsFilterService],
-	exports: [ProductsComponent],
+	exports: [ProductsComponent, ProductPriceComponent],
 })
 export class ProductModule {}

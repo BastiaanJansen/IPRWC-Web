@@ -9,17 +9,17 @@ import { CartService } from "src/app/cart/cart.service";
 	styleUrls: ["./nav.component.scss"],
 })
 export class NavComponent implements OnInit {
-	cartItems: CartItem[];
+	totalItemsInCart: number;
 
 	icons = {
-		faShoppingBasket: faShoppingBasket,
+		faShoppingBasket,
 	};
 
 	constructor(private cartService: CartService) {}
 
 	ngOnInit(): void {
-		this.cartService.itemsSubject.subscribe((items: CartItem[]) => {
-			this.cartItems = items;
+		this.cartService.itemsSubject.subscribe(() => {
+			this.totalItemsInCart = this.cartService.getTotalItems();
 		});
 	}
 }

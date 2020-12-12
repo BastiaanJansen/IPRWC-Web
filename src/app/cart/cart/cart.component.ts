@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { CartItem } from "../cart-item.model";
 import { CartService } from "../cart.service";
-import { faAppleAlt } from "@fortawesome/free-solid-svg-icons";
+import { faBreadSlice } from "@fortawesome/free-solid-svg-icons";
 import { Product } from "src/app/product/product.model";
 
 @Component({
@@ -15,7 +15,7 @@ export class CartComponent implements OnInit, OnDestroy {
 	private cartItemsSubscription: Subscription;
 
 	icons = {
-		faAppleAlt: faAppleAlt,
+		faBreadSlice,
 	};
 
 	constructor(private cartService: CartService) {}

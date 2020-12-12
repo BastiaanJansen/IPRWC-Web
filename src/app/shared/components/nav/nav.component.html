@@ -5,7 +5,7 @@
         </ul>
         <ul class="personal">
             <li><a routerLinkActive="active" routerLink="login">Inloggen</a></li>
-            <li id="cart" routerLink="cart"><fa-icon [icon]="icons.faShoppingBasket"></fa-icon> <span *ngIf="cartItems.length > 0" class="items-in-cart">{{ cartItems.length }}</span></li>
+            <li id="cart" routerLink="cart"><fa-icon [icon]="icons.faShoppingBasket"></fa-icon> <span *ngIf="totalItemsInCart > 0" class="items-in-cart">{{ totalItemsInCart }}</span></li>
         </ul>
     </div>
 </nav>

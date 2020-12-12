@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { CartItem } from "../cart-item.model";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { CartService } from "../cart.service";
 
 @Component({
 	selector: "app-cart-items-row",
@@ -15,11 +16,19 @@ export class CartItemsRowComponent implements OnInit {
 		faTrashAlt: faTrashAlt,
 	};
 
-	constructor() {}
+	constructor(private cartService: CartService) {}
 
 	ngOnInit(): void {}
 
 	removeFromCart(): void {
 		this.remove.emit(this.item);
+	}
+
+	changeQuantity(quantity: number): void {
+		this.cartService.changeQuantity(this.item.product, quantity);
+	}
+
+	totalPrice(): string {
+		return (this.item.quantity * this.item.product.price).toFixed(2);
 	}
 }
