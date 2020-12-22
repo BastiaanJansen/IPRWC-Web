@@ -1,3 +1,18 @@
 <div class="container">
     <app-header title="Inloggen"></app-header>
+
+    <main>
+        <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+            <div class="form-group">
+                <label for="email">E-mailadres</label>
+                <input type="email" name="email" id="email" placeholder="E-mailadres" ngModel required email>
+            </div>
+            <div class="form-group">
+                <label for="password">Wachtwoord</label>
+                <input type="password" name="password" id="password" placeholder="Wachtwoord" ngModel required>
+            </div>
+
+            <button class="button primary" [disabled]="loginForm.invalid">Inloggen</button>
+        </form>
+    </main>
 </div>

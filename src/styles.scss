@@ -116,7 +116,7 @@ button {
 
 .button {
 	cursor: pointer;
-	padding: 15px 25px;
+	padding: 12px 25px;
 	border-radius: $border-radius;
 	transition: 0.3s;
 	font-weight: 500;
@@ -171,7 +171,12 @@ button {
 	&.border {
         border: 1px solid $color-gray-400;
         color: $color-black;
-	}
+    }
+    
+    &:disabled {
+        background-color: $color-gray-500;
+        cursor: not-allowed;
+    }
 }
 
 .label {
@@ -187,26 +192,34 @@ form {
 	display: flex;
 	flex-direction: column;
 
-	// label.label {
-	// 	font-size: 0.75rem;
-	// 	font-weight: bold;
-	// 	margin-bottom: 10px;
-	// 	text-transform: uppercase;
-	// 	letter-spacing: 0.04rem;
-	// 	color: $color-gray-700;
-	// }
+	label {
+		font-size: 0.75rem;
+		font-weight: bold;
+		margin-bottom: 10px;
+		letter-spacing: 0.04rem;
+		color: $color-gray-700;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+    }
 
 	input {
 		padding: 12px 15px;
 		border-radius: 10px;
 		border: 1px solid $color-white;
 		outline: none;
-		// margin-bottom: 25px;
 		transition: 0.3s;
 		border: 1px solid $color-gray-400;
 		font-family: "Avenir", Helvetica, Arial, sans-serif;
 		background-color: $color-gray-100;
-		font-size: 12px;
+        font-size: 12px;
+        
+        &:focus {
+            border: 1px solid $color-primary;
+        }
 
 		&.error {
 			border: 1px solid $color-red-500;

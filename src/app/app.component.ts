@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { AuthService } from "./auth/auth.service";
 import { CartService } from "./cart/cart.service";
 
 @Component({
@@ -7,9 +8,13 @@ import { CartService } from "./cart/cart.service";
 	styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements OnInit {
-	constructor(private cartService: CartService) {}
+	constructor(
+		private cartService: CartService,
+		private authService: AuthService
+	) {}
 
 	ngOnInit(): void {
 		this.cartService.setFromLocalStorage();
+		this.authService.autoLogin();
 	}
 }
