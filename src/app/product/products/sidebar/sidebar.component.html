@@ -1,8 +1,9 @@
 <div class="sidebar">
-    <app-sidebar-item name="categorieën">
+    <app-sidebar-item name="categorieën" *ngIf="categories">
         <ul>
-            <li *ngFor="let category of categories" (click)="filterOnCategory(category)" [class]="{ 'active': isFilter('category', category.id) }">{{ category.name }} <span>({{ category.productCount }})</span></li>
+            <li *ngFor="let category of categories.result" (click)="filterOnCategory(category)" [class]="{ 'active': isFilter('category', category.id) }">{{ category.name }} <span>({{ category.productCount }})</span></li>
         </ul>
+        <button *ngIf="categories.count > categories.result.length" (click)="fetchCategories()">Meer...</button>
     </app-sidebar-item>
 
     <app-sidebar-item name="Nutri-Score">
@@ -13,10 +14,11 @@
         </ul>
     </app-sidebar-item>
 
-    <app-sidebar-item name="Merk">
+    <app-sidebar-item name="Merk" *ngIf="brands">
         <ul>
-            <li *ngFor="let brand of brands" (click)="filterOnBrand(brand)" [class]="{ 'active': isFilter('brand', brand.id ) }">{{ brand.name }} <span>({{ brand.productCount }})</span></li>
+            <li *ngFor="let brand of brands.result" (click)="filterOnBrand(brand)" [class]="{ 'active': isFilter('brand', brand.id) }">{{ brand.name }} <span>({{ brand.productCount }})</span></li>
         </ul>
+        <button *ngIf="brands.count > brands.result.length" (click)="fetchBrands()">Meer...</button>
     </app-sidebar-item>
 
     <app-sidebar-item name="Prijs">

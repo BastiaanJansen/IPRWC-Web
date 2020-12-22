@@ -7,6 +7,7 @@ import { ActivatedRoute, Params } from "@angular/router";
 import { ProductsFilterService } from "../products-filter.service";
 import { BrandService } from "src/app/brand/brand.service";
 import { CategoryService } from "src/app/category/category.service";
+import { map } from "rxjs/operators";
 
 @Component({
 	selector: "app-sidebar",
@@ -14,8 +15,10 @@ import { CategoryService } from "src/app/category/category.service";
 	styleUrls: ["./sidebar.component.scss"],
 })
 export class SidebarComponent implements OnInit {
-	categories: Category[];
-	brands: Brand[];
+	private take: number = 10;
+
+	categories: FindAllResponse<Category> = { result: [], count: 0 };
+	brands: FindAllResponse<Brand> = { result: [], count: 0 };
 	nutriScores: NutriScore[] = Object.values(NutriScore);
 
 	constructor(
@@ -26,16 +29,31 @@ export class SidebarComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.categoryService
-			.findAll()
-			.subscribe((categories: FindAllResponse<Category>) => {
-				this.categories = categories.result;
-			});
+		this.fetchCategories();
+		this.fetchBrands();
+	}
 
+	fetchCategories(
+		skip: number = this.categories.result.length,
+		take: number = this.take
+	): void {
+		this.categoryService
+			.findAll({ skip, take })
+			.subscribe((categories: FindAllResponse<Category>) => {
+				this.categories.result.push(...categories.result);
+				this.categories.count = categories.count;
+			});
+	}
+
+	fetchBrands(
+		skip: number = this.categories.result.length,
+		take: number = this.take
+	): void {
 		this.brandService
-			.findAll()
+			.findAll({ skip, take })
 			.subscribe((brands: FindAllResponse<Brand>) => {
-				this.brands = brands.result;
+				this.brands.result.push(...brands.result);
+				this.brands.count = brands.count;
 			});
 	}
 
