@@ -1,0 +1,75 @@
+<div class="container">
+    <app-header title="Dashboard"></app-header>
+
+    <main>
+        <section class="overview">
+            <div *ngIf="products" class="overview-item">
+                <header>
+                    <h4>Producten <span>({{ products.count }})</span></h4>
+                </header>
+    
+                <ul class="overview-item-list">
+                    <li *ngFor="let product of products.result">
+                        <header>
+                            <p>{{ product.name }}</p>
+                        
+                            <ul>
+                                <li>{{ product.brand.name }}</li>
+                                <li>{{ product.weight }}</li>
+                                <li>{{ product.nutriScore }}</li>
+                            </ul>
+                        </header>
+                        
+                        <div class="right">
+                            <app-product-price [price]="product.price"></app-product-price>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div *ngIf="brands" class="overview-item">
+                <header>
+                    <h4>Merken <span>({{ brands.count }})</span></h4>
+                </header>
+    
+                <ul class="overview-item-list">
+                    <li *ngFor="let brand of brands.result">
+                        <header>
+                            <p>{{ brand.name }}</p>
+                        
+                            <ul>
+                                <li>Producten: {{ brand.productCount }}</li>
+                            </ul>
+                        </header>
+                        
+                        <div class="right">
+                            <!-- <app-product-price [price]="product.price"></app-product-price> -->
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div *ngIf="categories" class="overview-item">
+                <header>
+                    <h4>Categorieën <span>({{ categories.count }})</span></h4>
+                </header>
+    
+                <ul class="overview-item-list">
+                    <li *ngFor="let category of categories.result">
+                        <header>
+                            <p>{{ category.name }}</p>
+                        
+                            <ul>
+                                <li>Producten: {{ category.productCount }}</li>
+                            </ul>
+                        </header>
+                        
+                        <div class="right">
+                            <!-- <app-product-price [price]="product.price"></app-product-price> -->
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+</div>

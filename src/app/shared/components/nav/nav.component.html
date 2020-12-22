@@ -4,7 +4,7 @@
             <li><a routerLinkActive="active" routerLink="" [routerLinkActiveOptions]="{ exact: true }">Producten</a></li>
         </ul>
         <ul class="personal">
-            <li><a routerLinkActive="active" routerLink="login">Inloggen</a></li>
+            <!-- <li><a routerLinkActive="active" routerLink="login">Inloggen</a></li> -->
             <li id="cart" routerLink="cart"><fa-icon [icon]="icons.faShoppingBasket"></fa-icon> <span *ngIf="totalItemsInCart > 0" class="items-in-cart">{{ totalItemsInCart }}</span></li>
         </ul>
     </div>

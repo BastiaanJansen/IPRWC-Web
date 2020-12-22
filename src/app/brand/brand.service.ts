@@ -1,6 +1,7 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { Filter } from "../shared/filter";
 import { FindAllResponse } from "../shared/find-all-response";
 import { Brand } from "./brand.model";
 
@@ -8,10 +9,12 @@ import { Brand } from "./brand.model";
 export class BrandService {
 	constructor(private http: HttpClient) {}
 
-	findAll(): Observable<FindAllResponse<Brand>> {
+	findAll(filter?: Filter): Observable<FindAllResponse<Brand>> {
 		const observable: Observable<FindAllResponse<Brand>> = this.http.get<
 			FindAllResponse<Brand>
-		>("/brands");
+		>("/brands", {
+			params: filter as HttpParams,
+		});
 
 		return observable;
 	}

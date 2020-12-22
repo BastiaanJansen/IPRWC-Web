@@ -1,6 +1,7 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { Filter } from "../shared/filter";
 import { FindAllResponse } from "../shared/find-all-response";
 import { Category } from "./category.model";
 
@@ -8,10 +9,12 @@ import { Category } from "./category.model";
 export class CategoryService {
 	constructor(private http: HttpClient) {}
 
-	findAll(): Observable<FindAllResponse<Category>> {
+	findAll(filter?: Filter): Observable<FindAllResponse<Category>> {
 		const observable: Observable<FindAllResponse<Category>> = this.http.get<
 			FindAllResponse<Category>
-		>("/categories");
+		>("/categories", {
+			params: filter as HttpParams,
+		});
 
 		return observable;
 	}
