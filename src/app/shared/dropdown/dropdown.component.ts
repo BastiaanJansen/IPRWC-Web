@@ -2,12 +2,13 @@ import {
 	Component,
 	ContentChild,
 	ElementRef,
+	forwardRef,
 	HostListener,
 	Input,
 	OnInit,
 	TemplateRef,
 } from "@angular/core";
-import { ControlValueAccessor } from "@angular/forms";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { DropdownOptionDirective } from "./dropdown-option.directive";
 import { DropdownSelectedDirective } from "./dropdown-selected.directive";
@@ -16,6 +17,13 @@ import { DropdownSelectedDirective } from "./dropdown-selected.directive";
 	selector: "app-dropdown",
 	templateUrl: "./dropdown.component.html",
 	styleUrls: ["./dropdown.component.scss"],
+	providers: [
+		{
+			provide: NG_VALUE_ACCESSOR,
+			useExisting: forwardRef(() => DropdownComponent),
+			multi: true,
+		},
+	],
 })
 export class DropdownComponent<T> implements OnInit, ControlValueAccessor {
 	@Input() options: Array<T> = [];
