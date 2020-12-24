@@ -36,18 +36,15 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.route.params.subscribe(async (params: Params) => {
-			await this.fetchProduct(params.id);
-			console.log(this.product);
-			this.cartItem = this.cartService.find(this.product);
+			this.fetchProduct(params.id);
 		});
 	}
 
 	addToCart(): void {
-		console.log(this.product.id);
 		this.cartItem = this.cartService.addToCart(this.product);
 	}
 
-	private async fetchProduct(id: number): Promise<void> {
+	private fetchProduct(id: number): void {
 		this.productService.findByID(id).subscribe((product: Product) => {
 			this.product = product;
 
