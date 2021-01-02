@@ -1,5 +1,5 @@
 <div class="sidebar">
-    <app-sidebar-item name="categorieën" *ngIf="categories">
+    <app-sidebar-item name="categorieën" *ngIf="categories.count > 0">
         <ul>
             <li *ngFor="let category of categories.result" (click)="filterOnCategory(category)" [class]="{ 'active': isFilter('category', category.id) }">{{ category.name }} <span>({{ category.productCount }})</span></li>
         </ul>
@@ -14,14 +14,10 @@
         </ul>
     </app-sidebar-item>
 
-    <app-sidebar-item name="Merk" *ngIf="brands">
+    <app-sidebar-item name="Merk" *ngIf="brands.count > 0">
         <ul>
             <li *ngFor="let brand of brands.result" (click)="filterOnBrand(brand)" [class]="{ 'active': isFilter('brand', brand.id) }">{{ brand.name }} <span>({{ brand.productCount }})</span></li>
         </ul>
         <button *ngIf="brands.count > brands.result.length" (click)="fetchBrands()">Meer...</button>
-    </app-sidebar-item>
-
-    <app-sidebar-item name="Prijs">
-
     </app-sidebar-item>
 </div>

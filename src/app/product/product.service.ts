@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { FindAllResponse } from "../shared/find-all-response";
 import { HTTPResponse } from "../shared/http-response";
 import { FilterProductDTO } from "./filter-product.dto";
@@ -9,6 +9,8 @@ import { map } from "rxjs/operators";
 
 @Injectable({ providedIn: "root" })
 export class ProductService {
+	productChangeSubject = new Subject<Product>();
+
 	constructor(private http: HttpClient) {}
 
 	findAll(filter?: FilterProductDTO): Observable<FindAllResponse<Product>> {

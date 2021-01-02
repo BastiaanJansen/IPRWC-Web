@@ -3,73 +3,65 @@
 
     <main>
         <section class="overview">
-            <div *ngIf="products" class="overview-item">
-                <header>
-                    <h4>Producten <span>({{ products.count }})</span></h4>
-                </header>
-    
-                <ul class="overview-item-list">
+            <app-overview-item *ngIf="products" name="Producten" [count]="products.count">
+                <ul>
                     <li *ngFor="let product of products.result">
-                        <header>
-                            <p>{{ product.name }}</p>
-                        
-                            <ul>
-                                <li>{{ product.brand.name }}</li>
-                                <li>{{ product.weight }}</li>
-                                <li>{{ product.nutriScore }}</li>
-                            </ul>
-                        </header>
-                        
-                        <div class="right">
-                            <app-product-price [price]="product.price"></app-product-price>
-                        </div>
+                        <p>{{ product.name }}</p>
+                    
+                        <ul>
+                            <li>{{ product.brand.name }}</li>
+                            <li>{{ product.weight }}</li>
+                            <li>{{ product.nutriScore }}</li>
+                        </ul>
                     </li>
                 </ul>
-            </div>
+            </app-overview-item>
 
-            <div *ngIf="brands" class="overview-item">
-                <header>
-                    <h4>Merken <span>({{ brands.count }})</span></h4>
-                </header>
-    
-                <ul class="overview-item-list">
+            <app-overview-item *ngIf="brands" name="Merken" [count]="brands.count">
+                <ul>
                     <li *ngFor="let brand of brands.result">
-                        <header>
-                            <p>{{ brand.name }}</p>
-                        
-                            <ul>
-                                <li>Producten: {{ brand.productCount }}</li>
-                            </ul>
-                        </header>
-                        
-                        <div class="right">
-                            <!-- <app-product-price [price]="product.price"></app-product-price> -->
-                        </div>
+                        <p>{{ brand.name }}</p>
+                    
+                        <ul>
+                            <li>Producten: {{ brand.productCount }}</li>
+                        </ul>
                     </li>
                 </ul>
-            </div>
+            </app-overview-item>
 
-            <div *ngIf="categories" class="overview-item">
-                <header>
-                    <h4>Categorieën <span>({{ categories.count }})</span></h4>
-                </header>
-    
-                <ul class="overview-item-list">
+            <app-overview-item *ngIf="categories" name="Categorieën" [count]="categories.count">
+                <ul>
                     <li *ngFor="let category of categories.result">
-                        <header>
+                        <app-overview-item-row>
                             <p>{{ category.name }}</p>
                         
                             <ul>
                                 <li>Producten: {{ category.productCount }}</li>
                             </ul>
-                        </header>
-                        
-                        <div class="right">
-                            <!-- <app-product-price [price]="product.price"></app-product-price> -->
-                        </div>
+                        </app-overview-item-row>
                     </li>
                 </ul>
-            </div>
+            </app-overview-item>
+
+            <app-overview-item *ngIf="tags" name="Tags" [count]="tags.count" (create)="createTag()">
+                <ul>
+                    <li *ngFor="let tag of tags.result">
+                        <app-overview-item-row (edit)="editTag(tag)" (delete)="deleteTag(tag)">
+                            <p>{{ tag.name }}</p>
+                    
+                            <ul>
+                                <li>Producten: {{ tag.productCount }}</li>
+                            </ul>
+                        </app-overview-item-row>
+                    </li>
+                </ul>
+            </app-overview-item>
         </section>
+
+        <app-set-tag-modal 
+            *ngIf="modals.setTag.show" 
+            (closeModal)="modals.setTag.show = false"
+            [tag]="modals.setTag.tag"
+        ></app-set-tag-modal>
     </main>
 </div>

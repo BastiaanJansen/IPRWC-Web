@@ -10,6 +10,6 @@ import { DropdownOptionDirective } from './dropdown/dropdown-option.directive';
 @NgModule({
 	declarations: [HeaderComponent, ModalComponent, DropdownComponent, DropdownSelectedDirective, DropdownOptionDirective],
 	imports: [CommonModule, FontAwesomeModule],
-	exports: [HeaderComponent],
+	exports: [HeaderComponent, ModalComponent],
 })
 export class SharedModule {}

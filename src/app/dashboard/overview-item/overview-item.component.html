@@ -1,0 +1,12 @@
+<div class="overview-item">
+    <header>
+        <h4>{{ name }} <span>({{ count }})</span></h4>
+        <div class="right">
+            <button (click)="createItem()"><fa-icon [icon]="icons.faPlus"></fa-icon></button>
+        </div>
+    </header>
+
+    <ul class="overview-item-list">
+        <ng-content></ng-content> 
+    </ul>
+</div>

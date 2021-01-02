@@ -7,7 +7,6 @@ import { ActivatedRoute, Params } from "@angular/router";
 import { ProductsFilterService } from "../products-filter.service";
 import { BrandService } from "src/app/brand/brand.service";
 import { CategoryService } from "src/app/category/category.service";
-import { map } from "rxjs/operators";
 
 @Component({
 	selector: "app-sidebar",

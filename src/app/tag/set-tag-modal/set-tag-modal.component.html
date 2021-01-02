@@ -1,0 +1,13 @@
+<app-modal [title]="tag ? 'Wijzig tag' : 'Nieuwe tag'" subtitle="Een tag is een kenmerk van een product." (closeModal)="close()">
+    <ng-container body>
+        <form #setTagForm="ngForm" id="set-tag-form" (ngSubmit)="tag ? edit(setTagForm) : create(setTagForm)">
+            <div class="form-group">
+                <label for="tag">Tag</label>
+                <input type="text" name="tag" id="tag" placeholder="Tag" [ngModel]="tag?.name" required>
+            </div>
+        </form>
+    </ng-container>
+    <ng-container footer>
+        <button class="button primary" form="set-tag-form">Opslaan</button>
+    </ng-container>
+</app-modal>
