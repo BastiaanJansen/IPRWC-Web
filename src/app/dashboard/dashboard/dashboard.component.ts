@@ -15,6 +15,7 @@ import { SetTagModalComponent } from "src/app/tag/set-tag-modal/set-tag-modal.co
 import { Modal } from "src/app/shared/modal/model.interface";
 import { SetCategoryModalComponent } from "src/app/category/set-category-modal/set-category-modal.component";
 import { OrderDirection } from "src/app/shared/filter";
+import { SetProductModalComponent } from "src/app/product/set-product-modal/set-product-modal.component";
 
 @Component({
 	selector: "app-dashboard",
@@ -119,6 +120,19 @@ export class DashboardComponent implements OnInit {
 			this.categories.result.splice(index, 1);
 			this.categories.count--;
 		})
+	}
+
+	removeProduct(product: Product): void {
+		this.productService.delete(product.id).subscribe(() => {
+			const index = this.products.result.indexOf(product);
+			this.products.result.splice(index, 1);
+			this.products.count--;
+		})
+	}
+
+	showProductModal(product?: Product): void {
+		const modal = this.createModal(SetProductModalComponent);
+		modal.instance.product = product;
 	}
 
 	showCategoryModal(category?: Category): void {

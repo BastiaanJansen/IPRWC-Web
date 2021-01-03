@@ -12,6 +12,6 @@ import { PlaceholderDirective } from './placeholder.directive';
 @NgModule({
 	declarations: [HeaderComponent, ModalComponent, DropdownComponent, DropdownSelectedDirective, DropdownOptionDirective, OverviewItemRowDirective, PlaceholderDirective],
 	imports: [CommonModule, FontAwesomeModule],
-	exports: [HeaderComponent, ModalComponent, OverviewItemRowDirective, PlaceholderDirective],
+	exports: [HeaderComponent, ModalComponent, DropdownComponent, DropdownOptionDirective, DropdownSelectedDirective, OverviewItemRowDirective, PlaceholderDirective],
 })
 export class SharedModule {}

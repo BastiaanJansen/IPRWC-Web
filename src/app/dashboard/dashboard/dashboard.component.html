@@ -3,18 +3,16 @@
 
     <main>
         <section class="overview">
-            <app-overview-item *ngIf="products" name="Producten" [count]="products.count">
-                <ul>
-                    <li *ngFor="let product of products.result">
-                        <p>{{ product.name }}</p>
+            <app-overview-item class="overview-item" *ngIf="products" [items]="products.result" name="Producten" [count]="products.count" (create)="showProductModal()" (update)="showProductModal($event)" (remove)="removeProduct($event)">
+                <ng-template appOverviewItemRow let-item>
+                    <p>{{ item.name }}</p>
                     
                         <ul>
-                            <li>{{ product.brand.name }}</li>
-                            <li>{{ product.weight }}</li>
-                            <li>{{ product.nutriScore }}</li>
+                            <li>{{ item.brand.name }}</li>
+                            <li>{{ item.weight }}</li>
+                            <li>{{ item.nutriScore }}</li>
                         </ul>
-                    </li>
-                </ul>
+                </ng-template>
             </app-overview-item>
 
             <app-overview-item class="overview-item" *ngIf="brands" [items]="brands.result" name="Merken" [count]="brands.count" (create)="showBrandModal()" (update)="showBrandModal($event)" (remove)="removeBrand($event)">

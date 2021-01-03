@@ -13,6 +13,8 @@ import { ProductDetailComponent } from "./product-detail/product-detail.componen
 import { ProductPriceComponent } from "./product-price/product-price.component";
 import { ProductsFilterService } from "./products/products-filter.service";
 import { ProductDetailRecommendedComponent } from "./product-detail/product-detail-recommended/product-detail-recommended.component";
+import { SetProductModalComponent } from './set-product-modal/set-product-modal.component';
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
 	declarations: [
@@ -23,6 +25,7 @@ import { ProductDetailRecommendedComponent } from "./product-detail/product-deta
 		ProductDetailComponent,
 		ProductPriceComponent,
 		ProductDetailRecommendedComponent,
+		SetProductModalComponent,
 	],
 	imports: [
 		RouterModule,
@@ -30,6 +33,7 @@ import { ProductDetailRecommendedComponent } from "./product-detail/product-deta
 		CommonModule,
 		FontAwesomeModule,
 		SharedModule,
+		FormsModule
 	],
 	providers: [ProductsFilterService],
 	exports: [ProductsComponent, ProductPriceComponent],
