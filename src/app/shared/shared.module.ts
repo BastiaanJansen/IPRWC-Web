@@ -6,10 +6,12 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { DropdownSelectedDirective } from './dropdown/dropdown-selected.directive';
 import { DropdownOptionDirective } from './dropdown/dropdown-option.directive';
+import { OverviewItemRowDirective } from './overview-item/overview-item-row.directive';
+import { PlaceholderDirective } from './placeholder.directive';
 
 @NgModule({
-	declarations: [HeaderComponent, ModalComponent, DropdownComponent, DropdownSelectedDirective, DropdownOptionDirective],
+	declarations: [HeaderComponent, ModalComponent, DropdownComponent, DropdownSelectedDirective, DropdownOptionDirective, OverviewItemRowDirective, PlaceholderDirective],
 	imports: [CommonModule, FontAwesomeModule],
-	exports: [HeaderComponent, ModalComponent],
+	exports: [HeaderComponent, ModalComponent, OverviewItemRowDirective, PlaceholderDirective],
 })
 export class SharedModule {}

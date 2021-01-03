@@ -1,4 +1,4 @@
-<app-modal [title]="tag ? 'Wijzig tag' : 'Nieuwe tag'" subtitle="Een tag is een kenmerk van een product." (closeModal)="close()">
+<app-modal [title]="tag ? 'Wijzig tag' : 'Nieuwe tag'" subtitle="Een tag is een kenmerk van een product." (close)="closeModal()">
     <ng-container body>
         <form #setTagForm="ngForm" id="set-tag-form" (ngSubmit)="tag ? edit(setTagForm) : create(setTagForm)">
             <div class="form-group">

@@ -17,51 +17,34 @@
                 </ul>
             </app-overview-item>
 
-            <app-overview-item *ngIf="brands" name="Merken" [count]="brands.count">
-                <ul>
-                    <li *ngFor="let brand of brands.result">
-                        <p>{{ brand.name }}</p>
-                    
-                        <ul>
-                            <li>Producten: {{ brand.productCount }}</li>
-                        </ul>
-                    </li>
-                </ul>
+            <app-overview-item class="overview-item" *ngIf="brands" [items]="brands.result" name="Merken" [count]="brands.count" (create)="showBrandModal()" (update)="showBrandModal($event)" (remove)="removeBrand($event)">
+                <ng-template appOverviewItemRow let-item>
+                    <p>{{ item.name }}</p>
+                    <ul class="item-info-list">
+                        <li>Producten: {{ item.productCount }}</li>
+                    </ul>
+                </ng-template>
             </app-overview-item>
 
-            <app-overview-item *ngIf="categories" name="Categorieën" [count]="categories.count">
-                <ul>
-                    <li *ngFor="let category of categories.result">
-                        <app-overview-item-row>
-                            <p>{{ category.name }}</p>
-                        
-                            <ul>
-                                <li>Producten: {{ category.productCount }}</li>
-                            </ul>
-                        </app-overview-item-row>
-                    </li>
-                </ul>
+            <app-overview-item class="overview-item" *ngIf="categories" [items]="categories.result" name="Categorieën" [count]="categories.count" (create)="showCategoryModal()" (update)="showCategoryModal($event)" (remove)="removeCategory($event)">
+                <ng-template appOverviewItemRow let-item>
+                    <p>{{ item.name }}</p>
+                    <ul class="item-info-list">
+                        <li>Producten: {{ item.productCount }}</li>
+                    </ul>
+                </ng-template>
             </app-overview-item>
 
-            <app-overview-item *ngIf="tags" name="Tags" [count]="tags.count" (create)="createTag()">
-                <ul>
-                    <li *ngFor="let tag of tags.result">
-                        <app-overview-item-row (edit)="editTag(tag)" (delete)="deleteTag(tag)">
-                            <p>{{ tag.name }}</p>
-                    
-                            <ul>
-                                <li>Producten: {{ tag.productCount }}</li>
-                            </ul>
-                        </app-overview-item-row>
-                    </li>
-                </ul>
+            <app-overview-item class="overview-item" *ngIf="tags" [items]="tags.result" name="Tags" [count]="tags.count" (create)="showTagModal()" (update)="showTagModal($event)" (remove)="removeTag($event)">
+                <ng-template appOverviewItemRow let-item>
+                    <p>{{ item.name }}</p>
+                    <ul class="item-info-list">
+                        <li>Producten: {{ item.productCount }}</li>
+                    </ul>
+                </ng-template>
             </app-overview-item>
         </section>
-
-        <app-set-tag-modal 
-            *ngIf="modals.setTag.show" 
-            (closeModal)="modals.setTag.show = false"
-            [tag]="modals.setTag.tag"
-        ></app-set-tag-modal>
     </main>
+
+    <ng-template appPlaceholder></ng-template>
 </div>

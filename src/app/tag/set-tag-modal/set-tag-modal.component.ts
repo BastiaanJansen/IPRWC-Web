@@ -10,27 +10,27 @@ import { TagService } from '../tag.service';
 })
 export class SetTagModalComponent implements OnInit {
     @Input() tag?: Tag;
-    @Output() closeModal = new EventEmitter();
+    @Output() close = new EventEmitter();
 
     constructor(private tagService: TagService) { }
 
     ngOnInit(): void {}
 
-    close(): void {
-        this.closeModal.emit();
+    closeModal(): void {
+        this.close.emit();
     }
 
     create(form: NgForm): void {
         this.tagService.create({ name: form.value.tag }).subscribe((tag: Tag) => {
-            this.tagService.tagChangedSubject.next(tag);
-            this.close();
+            this.tagService.changedSubject.next(tag);
+            this.closeModal();
         })
     }
 
     edit(form: NgForm): void {
-        this.tagService.edit(this.tag.id, { name: form.value.tag }).subscribe((tag: Tag) => {
-            this.tagService.tagChangedSubject.next(tag);
-            this.close();
+        this.tagService.update(this.tag.id, { name: form.value.tag }).subscribe((tag: Tag) => {
+            this.tagService.changedSubject.next(tag);
+            this.closeModal();
         })
     }
 }

@@ -7,11 +7,12 @@ import { SharedModule } from "../shared/shared.module";
 import { ProductModule } from "../product/product.module";
 import { TagModule } from "../tag/tag.module";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { OverviewItemComponent } from './overview-item/overview-item.component';
-import { OverviewItemRowComponent } from './overview-item/overview-item-row/overview-item-row.component';
+import { OverviewItemComponent } from '../shared/overview-item/overview-item.component';
+import { BrandModule } from "../brand/brand.module";
+import { CategoryModule } from "../category/category.module";
 
 @NgModule({
-	declarations: [DashboardComponent, OverviewItemComponent, OverviewItemRowComponent],
+	declarations: [DashboardComponent, OverviewItemComponent],
 	imports: [
 		CommonModule,
 		RouterModule,
@@ -19,7 +20,10 @@ import { OverviewItemRowComponent } from './overview-item/overview-item-row/over
 		ProductModule,
 		SharedModule,
 		TagModule,
-		FontAwesomeModule
+		FontAwesomeModule,
+		BrandModule,
+		ProductModule,
+		CategoryModule
 	],
 })
 export class DashboardModule {}

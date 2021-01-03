@@ -4,10 +4,12 @@ import { Observable, Subject } from "rxjs";
 import { Filter } from "../shared/filter";
 import { FindAllResponse } from "../shared/find-all-response";
 import { Brand } from "./brand.model";
+import { CreateBrandDTO } from "./dto/create-brand.dto";
+import { UpdateBrandDTO } from "./dto/update-brand.dto";
 
 @Injectable({ providedIn: "root" })
 export class BrandService {
-	brandChangedSubject = new Subject<Brand>();
+	changedSubject = new Subject<Brand>();
 
 	constructor(private http: HttpClient) {}
 
@@ -19,5 +21,24 @@ export class BrandService {
 		});
 
 		return observable;
+	}
+
+	create(dto: CreateBrandDTO): Observable<Brand> {
+		const observable: Observable<Brand> = this.http.post<Brand>("/brands", {
+			...dto
+		});
+
+		return observable;
+	}
+
+	update(brandID: number, dto: UpdateBrandDTO): Observable<Brand> {
+		const observable: Observable<Brand> = this.http.patch<Brand>(`/brands/${brandID}`, {
+			...dto
+		});
+		return observable;
+	}
+
+	delete(brandID: number): Observable<Object> {
+		return this.http.delete(`/brands/${brandID}`);
 	}
 }

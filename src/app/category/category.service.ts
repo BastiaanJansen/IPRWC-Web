@@ -4,10 +4,12 @@ import { Observable, Subject } from "rxjs";
 import { Filter } from "../shared/filter";
 import { FindAllResponse } from "../shared/find-all-response";
 import { Category } from "./category.model";
+import { CreateCategoryDTO } from "./dto/create-category.dto";
+import { UpdateCategoryDTO } from "./dto/update-category.dto";
 
 @Injectable({ providedIn: "root" })
 export class CategoryService {
-	categoryChangedSubject = new Subject<Category>();
+	changedSubject = new Subject<Category>();
 
 	constructor(private http: HttpClient) {}
 
@@ -19,5 +21,23 @@ export class CategoryService {
 		});
 
 		return observable;
+	}
+
+	create(dto: CreateCategoryDTO): Observable<Category> {
+		const observable: Observable<Category> = this.http.post<Category>("/categories", {
+			...dto
+		});
+		return observable;
+	}
+
+	update(categoryID: number, dto: UpdateCategoryDTO): Observable<Category> {
+		const observable: Observable<Category> = this.http.patch<Category>(`/categories/${categoryID}`, {
+			...dto
+		})
+		return observable;
+	}
+
+	delete(categoryID: number): Observable<Object> {
+		return this.http.delete(`/categories/${categoryID}`);
 	}
 }

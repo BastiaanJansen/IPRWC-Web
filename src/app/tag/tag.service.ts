@@ -9,7 +9,7 @@ import { Tag } from "./tag.model";
 
 @Injectable({ providedIn: "root" })
 export class TagService {
-	tagChangedSubject = new Subject<Tag>();
+	changedSubject = new Subject<Tag>();
 
 	constructor(private http: HttpClient) {}
 
@@ -31,7 +31,7 @@ export class TagService {
 		return observable;
 	}
 
-	edit(tagID: number, dto: EditTagDTO): Observable<Tag> {
+	update(tagID: number, dto: EditTagDTO): Observable<Tag> {
 		const observable: Observable<Tag> = this.http.patch<Tag>(`/tags/${tagID}`, {
 			...dto
 		});

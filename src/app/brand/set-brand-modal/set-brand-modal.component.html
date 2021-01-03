@@ -1,0 +1,13 @@
+<app-modal [title]="brand ? 'Wijzig merk' : 'Nieuw merk'" (close)="closeModal()">
+    <ng-container body>
+        <form #setBrandForm="ngForm" id="set-brand-form" (ngSubmit)="brand ? edit(setBrandForm) : create(setBrandForm)">
+            <div class="form-group">
+                <label for="brand">Merknaam</label>
+                <input type="text" name="name" id="brand" placeholder="Merknaam" [ngModel]="brand?.name" required>
+            </div>
+        </form>
+    </ng-container>
+    <ng-container footer>
+        <button class="button primary" form="set-brand-form">Opslaan</button>
+    </ng-container>
+</app-modal>

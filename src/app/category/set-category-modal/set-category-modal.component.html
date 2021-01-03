@@ -1,0 +1,13 @@
+<app-modal [title]="category ? 'Wijzig categorie' : 'Nieuwe categorie'" (close)="closeModal()">
+    <ng-container body>
+        <form #setCategoryForm="ngForm" id="set-cateegory-form" (ngSubmit)="category ? edit(setCategoryForm) : create(setCategoryForm)">
+            <div class="form-group">
+                <label for="category">Categorienaam</label>
+                <input type="text" name="name" id="category" placeholder="Categorienaam" [ngModel]="category?.name" required>
+            </div>
+        </form>
+    </ng-container>
+    <ng-container footer>
+        <button class="button primary" form="set-category-form">Opslaan</button>
+    </ng-container>
+</app-modal>

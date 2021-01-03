@@ -1,0 +1,21 @@
+<div class="overview-item">
+    <header>
+        <h4>{{ name }} <span>({{ count }})</span></h4>
+        <div class="trailing">
+            <button (click)="createItem()"><fa-icon [icon]="icons.faPlus"></fa-icon></button>
+        </div>
+    </header>
+
+    <ul class="overview-item-list">
+        <li *ngFor="let item of items" class="item-row">
+            <div class="leadinig">
+                <ng-container *ngTemplateOutlet="template; context: { $implicit: item }"></ng-container>
+            </div>
+
+            <div class="trailing">
+                <button (click)="updateItem(item)"><fa-icon [icon]="icons.faPen"></fa-icon></button>
+                <button (click)="removeItem(item)"><fa-icon [icon]="icons.faTrash"></fa-icon></button>
+            </div>
+        </li>
+    </ul>
+</div>

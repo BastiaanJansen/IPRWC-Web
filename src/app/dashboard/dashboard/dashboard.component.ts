@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ComponentFactoryResolver, ComponentRef, OnInit, Type, ViewChild } from "@angular/core";
 import { Brand } from "src/app/brand/brand.model";
 import { BrandService } from "src/app/brand/brand.service";
 import { Category } from "src/app/category/category.model";
@@ -9,6 +9,12 @@ import { FindAllResponse } from "src/app/shared/find-all-response";
 import { Tag } from "src/app/tag/tag.model";
 import { TagService } from "src/app/tag/tag.service";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { SetBrandModalComponent } from "src/app/brand/set-brand-modal/set-brand-modal.component";
+import { PlaceholderDirective } from "src/app/shared/placeholder.directive";
+import { SetTagModalComponent } from "src/app/tag/set-tag-modal/set-tag-modal.component";
+import { Modal } from "src/app/shared/modal/model.interface";
+import { SetCategoryModalComponent } from "src/app/category/set-category-modal/set-category-modal.component";
+import { OrderDirection } from "src/app/shared/filter";
 
 @Component({
 	selector: "app-dashboard",
@@ -16,48 +22,42 @@ import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 	styleUrls: ["./dashboard.component.scss"],
 })
 export class DashboardComponent implements OnInit {
-	private take: number = 7;
+	take: number = 7;
 
 	products: FindAllResponse<Product>;
 	brands: FindAllResponse<Brand>;
 	categories: FindAllResponse<Category>;
 	tags: FindAllResponse<Tag>;
 
-	modals = {
-		setTag: {
-			show: false,
-			tag: null
-		}
-	}
+	@ViewChild(PlaceholderDirective, { static: false }) modalHost: PlaceholderDirective
 
-	icons = {
-		faPen, faTrash
-	}
+	icons = { faPen, faTrash }
 
 	constructor(
 		private productService: ProductService,
 		private brandService: BrandService,
 		private categoryService: CategoryService,
-		private tagService: TagService
+		private tagService: TagService,
+		private componentFactoryResolver: ComponentFactoryResolver
 	) {}
 
 	ngOnInit(): void {
 		// Register for changes
-		this.tagService.tagChangedSubject.subscribe((tag: Tag) => this.fetchTags())
-		this.brandService.brandChangedSubject.subscribe((brand: Brand) => this.fetchBrands())
-		this.categoryService.categoryChangedSubject.subscribe((category: Category) => this.fetchCategories());
-		this.tagService.tagChangedSubject.subscribe((tag: Tag) => this.fetchTags());
+		this.productService.changedSubject.subscribe(() => this.fetchProducts());
+		this.brandService.changedSubject.subscribe(() => this.fetchBrands())
+		this.categoryService.changedSubject.subscribe(() => this.fetchCategories());
+		this.tagService.changedSubject.subscribe(() => this.fetchTags());
 
 		// Fetch current state
 		this.fetchProducts();
 		this.fetchBrands();
-		this.fetchTags();
 		this.fetchCategories();
+		this.fetchTags();
 	}
 
 	fetchProducts(): void {
 		this.productService
-			.findAll({ take: this.take })
+			.findAll({ take: this.take, order: "createdAt", orderDirection: OrderDirection.DESC })
 			.subscribe((products: FindAllResponse<Product>) => {
 				this.products = products;
 			});
@@ -65,7 +65,7 @@ export class DashboardComponent implements OnInit {
 
 	fetchBrands(): void {
 		this.brandService
-		.findAll({ take: this.take })
+		.findAll({ take: this.take, order: "createdAt", orderDirection: OrderDirection.DESC })
 		.subscribe((brands: FindAllResponse<Brand>) => {
 			this.brands = brands;
 		});
@@ -73,7 +73,7 @@ export class DashboardComponent implements OnInit {
 
 	fetchCategories(): void {
 		this.categoryService
-			.findAll({ take: this.take })
+			.findAll({ take: this.take, order: "createdAt", orderDirection: OrderDirection.DESC })
 			.subscribe((categories: FindAllResponse<Category>) => {
 				this.categories = categories;
 			});
@@ -81,29 +81,57 @@ export class DashboardComponent implements OnInit {
 
 	fetchTags(): void {
 		this.tagService
-			.findAll({ take: this.take })
+			.findAll({ take: this.take, order: "createdAt", orderDirection: OrderDirection.DESC })
 			.subscribe((tags: FindAllResponse<Tag>) => {
 				this.tags = tags;
-			})
+			});
 	}
 
-	createTag(): void {
-		this.modals.setTag = {
-			show: true,
-			tag: null
-		}
+	showTagModal(tag?: Tag): void {
+		const modal = this.createModal(SetTagModalComponent);
+		modal.instance.tag = tag;
 	}
-
-	deleteTag(tag: Tag): void {
+	
+	removeTag(tag: Tag): void {
 		this.tagService.delete(tag.id).subscribe(() => {
-			this.fetchTags();
+			const index = this.tags.result.indexOf(tag);
+			this.tags.result.splice(index, 1);
+			this.tags.count--;
 		});
 	}
 
-	editTag(tag: Tag) {
-		this.modals.setTag = {
-			show: true,
-			tag
-		}
+	removeBrand(brand: Brand): void {
+		this.brandService.delete(brand.id).subscribe(() => {
+			const index = this.brands.result.indexOf(brand);
+			this.brands.result.splice(index, 1);
+			this.brands.count--;
+		});
+	}
+
+	showBrandModal(brand?: Brand): void {
+		const modal = this.createModal(SetBrandModalComponent);
+		modal.instance.brand = brand;
+	}
+
+	removeCategory(category: Category): void {
+		this.categoryService.delete(category.id).subscribe(() => {
+			const index = this.categories.result.indexOf(category);
+			this.categories.result.splice(index, 1);
+			this.categories.count--;
+		})
+	}
+
+	showCategoryModal(category?: Category): void {
+		const modal = this.createModal(SetCategoryModalComponent);
+		modal.instance.category = category;
+	}
+
+	private createModal<T extends Modal>(type: Type<T>): ComponentRef<T> {
+		const factory = this.componentFactoryResolver.resolveComponentFactory(type);
+		const hostViewContainer = this.modalHost.viewContainerRef;
+		const modalRef = hostViewContainer.createComponent(factory);
+
+		modalRef.instance.close.subscribe(() => hostViewContainer.clear());
+		return modalRef;
 	}
 }

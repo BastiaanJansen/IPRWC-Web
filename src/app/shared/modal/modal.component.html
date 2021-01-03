@@ -1,4 +1,4 @@
-<div class="overlay" (mousedown)="close()">
+<div class="overlay" (mousedown)="closeModal()">
     <div class="modal-container" (mousedown)="$event.stopPropagation()">
         <header>
             <div class="modal-title">
@@ -6,7 +6,7 @@
                 <p *ngIf="subtitle" class="caption">{{ subtitle }}</p>
             </div>
     
-            <button class="close-button" (click)="close()">
+            <button class="close-button" (click)="closeModal()">
                 <fa-icon [icon]="icons.faTimesCircle"></fa-icon>
             </button>
         </header>

@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { SetBrandModalComponent } from "./set-brand-modal/set-brand-modal.component";
+import { SharedModule } from "../shared/shared.module";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
+	declarations: [SetBrandModalComponent],
+    imports: [CommonModule, SharedModule, FormsModule],
+    exports: [SetBrandModalComponent]
 })
-export class BrandModule { }
+export class BrandModule {}

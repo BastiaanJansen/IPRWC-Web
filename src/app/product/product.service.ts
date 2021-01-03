@@ -9,7 +9,7 @@ import { map } from "rxjs/operators";
 
 @Injectable({ providedIn: "root" })
 export class ProductService {
-	productChangeSubject = new Subject<Product>();
+	changedSubject = new Subject<Product>();
 
 	constructor(private http: HttpClient) {}
 

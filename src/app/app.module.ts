@@ -13,6 +13,7 @@ import { SharedModule } from "./shared/shared.module";
 import { AuthModule } from "./auth/auth.module";
 import { CartModule } from "./cart/cart.module";
 import { DashboardModule } from "./dashboard/dashboard.module";
+import { SetBrandModalComponent } from "./brand/set-brand-modal/set-brand-modal.component";
 
 @NgModule({
 	declarations: [AppComponent, NavComponent],
