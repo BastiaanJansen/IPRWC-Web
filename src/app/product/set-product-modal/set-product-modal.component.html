@@ -11,15 +11,15 @@
                 <textarea name="description" id="description" placeholder="Description" [ngModel]="product?.description" required></textarea>
             </div>
 
-            <div class="columns">
-                <div class="column form-group" *ngIf="categories">
+            <div class="columns form-group">
+                <div class="column" *ngIf="categories?.length > 0">
+                    <label for="category">Categorie</label>
                     <app-dropdown [ngModel]="product?.category" name="category" id="category" ngDefaultControl required [options]="categories">
-                        <ng-template dropdownSelected let-selected>
+                        <ng-template appDropdownSelected let-selected>
                             <p>{{ selected.name }}</p>
                         </ng-template>
-                        <ng-template dropdownOption let-option>
+                        <ng-template appDropdownOption let-option>
                             <p>{{ option.name }}</p>
-                            <p>sdsd</p>
                         </ng-template>
                     </app-dropdown>
                 </div>

@@ -16,6 +16,7 @@ import { Modal } from "src/app/shared/modal/model.interface";
 import { SetCategoryModalComponent } from "src/app/category/set-category-modal/set-category-modal.component";
 import { OrderDirection } from "src/app/shared/filter";
 import { SetProductModalComponent } from "src/app/product/set-product-modal/set-product-modal.component";
+import { ModalService } from "src/app/shared/modal/modal.service";
 
 @Component({
 	selector: "app-dashboard",
@@ -39,7 +40,7 @@ export class DashboardComponent implements OnInit {
 		private brandService: BrandService,
 		private categoryService: CategoryService,
 		private tagService: TagService,
-		private componentFactoryResolver: ComponentFactoryResolver
+		private modalService: ModalService
 	) {}
 
 	ngOnInit(): void {
@@ -89,7 +90,7 @@ export class DashboardComponent implements OnInit {
 	}
 
 	showTagModal(tag?: Tag): void {
-		const modal = this.createModal(SetTagModalComponent);
+		const modal = this.modalService.createModal(SetTagModalComponent, this.modalHost);
 		modal.instance.tag = tag;
 	}
 	
@@ -110,7 +111,7 @@ export class DashboardComponent implements OnInit {
 	}
 
 	showBrandModal(brand?: Brand): void {
-		const modal = this.createModal(SetBrandModalComponent);
+		const modal = this.modalService.createModal(SetBrandModalComponent, this.modalHost);
 		modal.instance.brand = brand;
 	}
 
@@ -131,21 +132,12 @@ export class DashboardComponent implements OnInit {
 	}
 
 	showProductModal(product?: Product): void {
-		const modal = this.createModal(SetProductModalComponent);
+		const modal = this.modalService.createModal(SetProductModalComponent, this.modalHost);
 		modal.instance.product = product;
 	}
 
 	showCategoryModal(category?: Category): void {
-		const modal = this.createModal(SetCategoryModalComponent);
+		const modal = this.modalService.createModal(SetCategoryModalComponent, this.modalHost);
 		modal.instance.category = category;
-	}
-
-	private createModal<T extends Modal>(type: Type<T>): ComponentRef<T> {
-		const factory = this.componentFactoryResolver.resolveComponentFactory(type);
-		const hostViewContainer = this.modalHost.viewContainerRef;
-		const modalRef = hostViewContainer.createComponent(factory);
-
-		modalRef.instance.close.subscribe(() => hostViewContainer.clear());
-		return modalRef;
 	}
 }

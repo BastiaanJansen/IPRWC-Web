@@ -10,9 +10,10 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { OverviewItemComponent } from '../shared/overview-item/overview-item.component';
 import { BrandModule } from "../brand/brand.module";
 import { CategoryModule } from "../category/category.module";
+import { DashboardBrandsComponent } from './dashboard-brands/dashboard-brands.component';
 
 @NgModule({
-	declarations: [DashboardComponent, OverviewItemComponent],
+	declarations: [DashboardComponent, OverviewItemComponent, DashboardBrandsComponent],
 	imports: [
 		CommonModule,
 		RouterModule,
