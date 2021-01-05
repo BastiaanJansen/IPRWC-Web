@@ -8,6 +8,6 @@
         </form>
     </ng-container>
     <ng-container footer>
-        <button class="button primary" form="set-category-form">Opslaan</button>
+        <button class="button primary" [disabled]="setCategoryForm.invalid" form="set-category-form">Opslaan</button>
     </ng-container>
 </app-modal>

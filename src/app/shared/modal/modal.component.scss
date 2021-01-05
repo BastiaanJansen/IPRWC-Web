@@ -23,6 +23,8 @@
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 10;
+    max-height: min(80vh, 700px);
+    overflow: auto;
 
     header {
         padding-bottom: 20px;

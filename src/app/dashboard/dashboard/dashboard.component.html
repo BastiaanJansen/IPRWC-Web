@@ -2,19 +2,26 @@
     <app-header title="Dashboard"></app-header>
 
     <main>
-        <section class="overview">
+        <section>
             <app-overview-item class="overview-item" *ngIf="products" [items]="products.result" name="Producten" [count]="products.count" (create)="showProductModal()" (update)="showProductModal($event)" (remove)="removeProduct($event)">
                 <ng-template appOverviewItemRow let-item>
-                    <p>{{ item.name }}</p>
-                    
-                        <ul>
-                            <li>{{ item.brand.name }}</li>
-                            <li>{{ item.weight }}</li>
-                            <li>{{ item.nutriScore }}</li>
-                        </ul>
+                    <div class="product-item">
+                        <img [src]="item.image" [alt]="item.name">
+                        <div>
+                            <p>{{ item.name }}</p>
+                            <ul class="item-info-list">
+                                <li>{{ item.brand.name }}</li>
+                                <li>{{ item.weight }}</li>
+                                <li>{{ item.nutriScore }}</li>
+                                <li>€ {{ item.price }}</li>
+                            </ul>
+                        </div>
+                    </div>
                 </ng-template>
             </app-overview-item>
+        </section>
 
+        <section class="overview">
             <app-overview-item class="overview-item" *ngIf="brands" [items]="brands.result" name="Merken" [count]="brands.count" (create)="showBrandModal()" (update)="showBrandModal($event)" (remove)="removeBrand($event)">
                 <ng-template appOverviewItemRow let-item>
                     <p>{{ item.name }}</p>
@@ -33,7 +40,7 @@
                 </ng-template>
             </app-overview-item>
 
-            <app-overview-item class="overview-item" *ngIf="tags" [items]="tags.result" name="Tags" [count]="tags.count" (create)="showTagModal()" (update)="showTagModal($event)" (remove)="removeTag($event)">
+            <app-overview-item class="overview-item" *ngIf="tags" [items]="tags.result" name="Labels" [count]="tags.count" (create)="showTagModal()" (update)="showTagModal($event)" (remove)="removeTag($event)">
                 <ng-template appOverviewItemRow let-item>
                     <p>{{ item.name }}</p>
                     <ul class="item-info-list">

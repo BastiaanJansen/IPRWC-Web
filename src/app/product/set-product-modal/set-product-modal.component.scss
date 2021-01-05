@@ -1,0 +1,21 @@
+@import "/src/app/shared/variables";
+
+#tags {
+    display: flex;
+    margin: 0 -5px;
+
+    li {
+        padding: 5px 10px;
+        background-color: lighten($color-primary, 50%);
+        border-radius: 20px;
+        font-size: 13px;
+        margin: 0 5px;
+        cursor: pointer;
+        user-select: none;
+
+        &.selected {
+            background-color: $color-primary;
+            color: white;
+        }
+    }
+}

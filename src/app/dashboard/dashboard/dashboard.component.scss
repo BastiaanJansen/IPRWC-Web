@@ -13,9 +13,32 @@
     }
     
     .item-info-list {
+        display: flex;
+
         li {
             font-size: 13px;
-            margin-top: 2px;
+            margin-top: 5px;
+            margin-right: 16px;
+
+            &::after {
+                content: "•";
+                position: absolute;
+                margin-left: 5px;
+            }
+
+            &:last-of-type::after {
+                content: ""
+            }
         }
+    }
+}
+
+.product-item {
+    display: flex;
+    align-items: center;
+
+    img {
+        max-width: 80px;
+        margin-right: 10px;
     }
 }

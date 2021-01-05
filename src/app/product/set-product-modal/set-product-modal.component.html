@@ -11,10 +11,22 @@
                 <textarea name="description" id="description" placeholder="Description" [ngModel]="product?.description" required></textarea>
             </div>
 
-            <div class="columns form-group">
-                <div class="column" *ngIf="categories?.length > 0">
+            <div class="columns">
+                <div class="column form-group" *ngIf="categories?.length > 0">
                     <label for="category">Categorie</label>
-                    <app-dropdown [ngModel]="product?.category" name="category" id="category" ngDefaultControl required [options]="categories">
+                    <app-dropdown [ngModel]="defaultCategory" name="category" id="category" ngDefaultControl required [options]="categories">
+                        <ng-template appDropdownSelected let-selected>
+                            <p>{{ selected.name }}</p>
+                        </ng-template>
+                        <ng-template appDropdownOption let-option>
+                            <p>{{ option.name }}</p>
+                        </ng-template>
+                    </app-dropdown>
+                </div>
+
+                <div class="column form-group" *ngIf="brands?.length > 0">
+                    <label for="brand">Merk</label>
+                    <app-dropdown [ngModel]="defaultBrand" name="brand" id="brand" ngDefaultControl required [options]="brands">
                         <ng-template appDropdownSelected let-selected>
                             <p>{{ selected.name }}</p>
                         </ng-template>
@@ -25,8 +37,19 @@
                 </div>
             </div>
 
-            <div class="columns">
+            <div class="form-group">
+                <label for="nutriscore">Nutri-score</label>
+                <app-dropdown [ngModel]="defaultNutriscore" name="nutriscore" id="nutriscore" ngDefaultControl required [options]="nutriscores">
+                    <ng-template appDropdownSelected let-selected>
+                        <p>{{ selected }}</p>
+                    </ng-template>
+                    <ng-template appDropdownOption let-option>
+                        <p>{{ option }}</p>
+                    </ng-template>
+                </app-dropdown>
+            </div>
 
+            <div class="columns">
                 <div class="column form-group">
                     <label for="weight">Gewicht / volume</label>
                     <input type="text" name="weight" id="weight" placeholder="200 gram" [ngModel]="product?.weight" required>
@@ -36,11 +59,10 @@
                     <label for="price">Prijs</label>
                     <input type="text" name="price" id="price" placeholder="Prijs" [ngModel]="product?.price" required>
                 </div>
-
             </div>
 
             <div class="columns">
-                <div class="column from-group">
+                <div class="column form-group">
                     <label for="barcode">EAN Code</label>
                     <input type="text" name="barcode" id="barcode" placeholder="8710400311140" [ngModel]="product?.barcode" required>
                 </div>
@@ -50,9 +72,18 @@
                     <input type="text" name="image" id="image" placeholder="http://www.website.com/afbeelding.png" [ngModel]="product?.image" required>
                 </div>
             </div>
+
+            <div class="form-group" *ngIf="tags.length > 0">
+                <label for="tags">Labels</label>
+                <ul id="tags">
+                    <li *ngFor="let tag of tags" [class]="{ selected: tagIsSelected(tag) }" (click)="toggleTag(tag)">
+                        {{ tag.name }}
+                    </li>
+                </ul>
+            </div>
         </form>
     </ng-container>
     <ng-container footer>
-        <button class="button primary" form="set-product-form">Opslaan</button>
+        <button class="button primary" [disabled]="setProductForm.invalid" form="set-product-form">Opslaan</button>
     </ng-container>
 </app-modal>

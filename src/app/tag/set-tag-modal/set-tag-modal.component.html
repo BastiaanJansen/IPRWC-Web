@@ -1,4 +1,4 @@
-<app-modal [title]="tag ? 'Wijzig tag' : 'Nieuwe tag'" subtitle="Een tag is een kenmerk van een product." (close)="closeModal()">
+<app-modal [title]="tag ? 'Wijzig label' : 'Nieuwe label'" subtitle="Een label is een kenmerk van een product." (close)="closeModal()">
     <ng-container body>
         <form #setTagForm="ngForm" id="set-tag-form" (ngSubmit)="tag ? edit(setTagForm) : create(setTagForm)">
             <div class="form-group">
@@ -8,6 +8,6 @@
         </form>
     </ng-container>
     <ng-container footer>
-        <button class="button primary" form="set-tag-form">Opslaan</button>
+        <button class="button primary" [disabled]="setTagForm.invalid" form="set-tag-form">Opslaan</button>
     </ng-container>
 </app-modal>
