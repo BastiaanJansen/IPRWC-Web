@@ -12,7 +12,10 @@
                 <input type="password" name="password" id="password" placeholder="Wachtwoord" ngModel required>
             </div>
 
-            <button class="button primary" [disabled]="loginForm.invalid">Inloggen</button>
+            <div class="form-group">
+                <button class="button primary" [disabled]="loginForm.invalid">Inloggen</button>
+                <a routerLink="/register">Heeft u nog geen account? Maak hier een account.</a>
+            </div>
         </form>
     </main>
 </div>

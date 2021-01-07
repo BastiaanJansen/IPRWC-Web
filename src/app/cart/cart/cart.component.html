@@ -20,8 +20,15 @@
         <a [routerLink]="['/products']" class="button secondary">
             Vind producten
         </a>
-        <button class="button primary">
-            Afrekenen
-        </button>
+        <ng-container *ngIf="cartItems.length > 0">
+            <button class="button primary" *ngIf="userIsLoggedIn(); else loginButton">
+                Bestellen
+            </button>
+            <ng-template #loginButton>
+                <button [routerLink]="['/login']" class="button primary">
+                    Inloggen
+                </button>
+            </ng-template>
+        </ng-container>
     </footer>
 </div>

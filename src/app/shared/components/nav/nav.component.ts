@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { faShoppingBasket } from "@fortawesome/free-solid-svg-icons";
+import { AuthService } from "src/app/auth/auth.service";
 import { CartItem } from "src/app/cart/cart-item.model";
 import { CartService } from "src/app/cart/cart.service";
 
@@ -15,11 +17,16 @@ export class NavComponent implements OnInit {
 		faShoppingBasket,
 	};
 
-	constructor(private cartService: CartService) {}
+	constructor(private cartService: CartService, public authService: AuthService, private router: Router) {}
 
 	ngOnInit(): void {
 		this.cartService.itemsSubject.subscribe(() => {
 			this.totalItemsInCart = this.cartService.getTotalItems();
 		});
+	}
+
+	logout(): void {
+		this.authService.logout();
+		this.router.navigate([""]);
 	}
 }

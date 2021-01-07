@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 		const values = form.value;
 
 		this.authService.login(values).subscribe(() => {
-			this.router.navigate(["dashboard"]);
+			this.router.navigate([""]);
 		});
 	}
 }

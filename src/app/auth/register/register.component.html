@@ -1,0 +1,33 @@
+<div class="container">
+    <app-header title="Registreren"></app-header>
+
+    <main>
+        <form #loginForm="ngForm" (ngSubmit)="register(loginForm)">
+            <div class="columns">
+                <div class="column form-group">
+                    <label for="firstname">Voornaam</label>
+                    <input type="firstname" name="firstname" id="firstname" placeholder="Voornaam" ngModel required>
+                </div>
+
+                <div class="column form-group">
+                    <label for="lastname">Achternaam</label>
+                    <input type="lastname" name="lastname" id="lastname" placeholder="Achternaam" ngModel required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-mailadres</label>
+                <input type="email" name="email" id="email" placeholder="E-mailadres" ngModel required email>
+            </div>
+            <div class="form-group">
+                <label for="password">Wachtwoord</label>
+                <input type="password" name="password" id="password" placeholder="Wachtwoord" ngModel required>
+            </div>
+
+            <div class="form-group">
+                <button class="button primary" [disabled]="loginForm.invalid">Registreren</button>
+                <a routerLink="/login">Heeft u al een account? Log hier in.</a>
+            </div>
+        </form>
+    </main>
+</div>

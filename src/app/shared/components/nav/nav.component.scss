@@ -17,22 +17,19 @@ nav {
         align-items: center;
         height: 100%;
         margin: 0 -15px;
-
-        li a {
-            cursor: pointer;
-
-            &.active {
-                color: $color-primary;
-                font-weight: bold;
-            }
-        }
-
+        
         li {
             transition: .3s;
             margin: 0 15px;
+            cursor: pointer;
 
             &:hover {
                 color: $color-primary;
+            }
+
+            a.active {
+                color: $color-primary;
+                font-weight: bold;
             }
         }
     }

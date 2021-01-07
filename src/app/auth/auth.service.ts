@@ -3,7 +3,8 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map, tap } from "rxjs/operators";
 import { User } from "../user/user.model";
-import { loginDTO } from "./dto/login.dto";
+import { LoginDTO } from "./dto/login.dto";
+import { RegisterDTO } from "./dto/register.dto";
 import { LoginInfo } from "./login-info.model";
 
 @Injectable({
@@ -21,17 +22,24 @@ export class AuthService {
 		localStorage.removeItem("loginInfo");
 	}
 
-	login(dto: loginDTO): Observable<User> {
-		const observer: Observable<User> = this.http
+	login(dto: LoginDTO): Observable<User> {
+		const observable: Observable<User> = this.http
 			.post<LoginInfo>("/auth/login", dto)
 			.pipe(
-				map((response: any) => response.result),
 				tap((loginInfo: LoginInfo): void => {
 					this.handleAuthentication(loginInfo);
 				}),
 				map((loginInfo: LoginInfo): User => loginInfo.user)
 			);
-		return observer;
+		return observable;
+	}
+
+	register(dto: RegisterDTO): Observable<User> {
+		const observable: Observable<User> = this.http.post<User>("/auth/register", {
+			...dto
+		});
+
+		return observable;
 	}
 
 	isLoggedIn = (): boolean => !!this.loginInfo.getValue();

@@ -4,6 +4,7 @@ import { CartItem } from "../cart-item.model";
 import { CartService } from "../cart.service";
 import { faBreadSlice } from "@fortawesome/free-solid-svg-icons";
 import { Product } from "src/app/product/product.model";
+import { AuthService } from "src/app/auth/auth.service";
 
 @Component({
 	selector: "app-cart",
@@ -18,7 +19,7 @@ export class CartComponent implements OnInit, OnDestroy {
 		faBreadSlice,
 	};
 
-	constructor(private cartService: CartService) {}
+	constructor(private cartService: CartService, private authService: AuthService) {}
 
 	ngOnInit(): void {
 		this.cartItemsSubscription = this.cartService.itemsSubject.subscribe(
@@ -34,5 +35,9 @@ export class CartComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this.cartItemsSubscription.unsubscribe();
+	}
+
+	userIsLoggedIn(): boolean {
+		return this.authService.isLoggedIn();
 	}
 }

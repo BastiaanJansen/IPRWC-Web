@@ -7,9 +7,10 @@ import { AuthRoutingModule } from "./auth-routing.module";
 import { FormsModule } from "@angular/forms";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthInterceptorService } from "./auth-interceptor";
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
-	declarations: [LoginComponent],
+	declarations: [LoginComponent, RegisterComponent],
 	imports: [
 		RouterModule,
 		AuthRoutingModule,
