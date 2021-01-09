@@ -5,6 +5,9 @@ import { CartService } from "../cart.service";
 import { faBreadSlice } from "@fortawesome/free-solid-svg-icons";
 import { Product } from "src/app/product/product.model";
 import { AuthService } from "src/app/auth/auth.service";
+import { OrderService } from "src/app/order/order.service";
+import { Order } from "src/app/order/order.model";
+import { CreateOrderDTO } from "src/app/order/dto/create-order.dto";
 
 @Component({
 	selector: "app-cart",
@@ -19,7 +22,7 @@ export class CartComponent implements OnInit, OnDestroy {
 		faBreadSlice,
 	};
 
-	constructor(private cartService: CartService, private authService: AuthService) {}
+	constructor(private cartService: CartService, private authService: AuthService, private orderService: OrderService) {}
 
 	ngOnInit(): void {
 		this.cartItemsSubscription = this.cartService.itemsSubject.subscribe(
@@ -39,5 +42,16 @@ export class CartComponent implements OnInit, OnDestroy {
 
 	userIsLoggedIn(): boolean {
 		return this.authService.isLoggedIn();
+	}
+
+	order(): void {
+		const userID: number = this.authService.loginInfo.getValue().user.id;
+		const dto: CreateOrderDTO = {
+			productID: []
+		}
+
+		this.orderService.create(userID, dto).subscribe((order: Order) => {
+			console.log(order);
+		})
 	}
 }

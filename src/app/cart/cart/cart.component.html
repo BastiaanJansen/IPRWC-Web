@@ -21,7 +21,7 @@
             Vind producten
         </a>
         <ng-container *ngIf="cartItems.length > 0">
-            <button class="button primary" *ngIf="userIsLoggedIn(); else loginButton">
+            <button class="button primary" *ngIf="userIsLoggedIn(); else loginButton" (click)="order()">
                 Bestellen
             </button>
             <ng-template #loginButton>
