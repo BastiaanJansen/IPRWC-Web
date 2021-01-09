@@ -2,14 +2,15 @@
 
 #tags {
     display: flex;
-    margin: 0 -5px;
+    margin: -5px;
+    flex-wrap: wrap;
 
     li {
         padding: 5px 10px;
         background-color: lighten($color-primary, 50%);
         border-radius: 20px;
         font-size: 13px;
-        margin: 0 5px;
+        margin: 5px;
         cursor: pointer;
         user-select: none;
 

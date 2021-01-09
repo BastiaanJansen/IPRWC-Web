@@ -20,100 +20,117 @@ import { ProductService } from "../product.service";
 })
 export class SetProductModalComponent implements OnInit {
 	@Input() product?: Product;
-    @Output() close = new EventEmitter();
+	@Output() close = new EventEmitter();
 
-    categories: Category[];
-    brands: Brand[];
-    tags: Tag[];
-    nutriscores: NutriScore[];
+	categories: Category[] = [];
+	brands: Brand[] = [];
+	tags: Tag[] = [];
+	nutriscores: NutriScore[] = [];
 
-    selectedTags: Tag[];
+	selectedTags: Tag[] = [];
 
-    get defaultCategory(): Category {
-        return this.product?.category ?? this.categories[0];
-    }
+	get defaultCategory(): Category {
+		return this.product?.category ?? this.categories[0];
+	}
 
-    get defaultBrand(): Brand {
-        return this.product?.brand ?? this.brands[0];
-    }
+	get defaultBrand(): Brand {
+		return this.product?.brand ?? this.brands[0];
+	}
 
-    get defaultNutriscore(): NutriScore {
-        return this.product?.nutriScore ?? this.nutriscores[0];
-    }
+	get defaultNutriscore(): NutriScore {
+		return this.product?.nutriScore ?? this.nutriscores[0];
+	}
 
-    constructor(private productService: ProductService, private categoryService: CategoryService, private brandService: BrandService, private tagService: TagService) { }
+	constructor(
+		private productService: ProductService,
+		private categoryService: CategoryService,
+		private brandService: BrandService,
+		private tagService: TagService
+	) {}
 
-    ngOnInit(): void {
-        this.categoryService.findAll().subscribe((categories: FindAllResponse<Category>) => {
-            this.categories = categories.result;
-        })
+	ngOnInit(): void {
+		this.categoryService
+			.findAll()
+			.subscribe((categories: FindAllResponse<Category>) => {
+				this.categories = categories.result;
+			});
 
-        this.brandService.findAll().subscribe((brands: FindAllResponse<Brand>) => {
-            this.brands = brands.result;
-        })
-    
-        this.tagService.findAll().subscribe((tags: FindAllResponse<Tag>) => {
-            this.tags = tags.result;
-            const productTagIDs = this.product?.tags.map((tag: Tag) => tag.id) ?? [];
-            this.selectedTags = this.tags.filter((tag: Tag) => productTagIDs.includes(tag.id));
-        })
+		this.brandService
+			.findAll()
+			.subscribe((brands: FindAllResponse<Brand>) => {
+				this.brands = brands.result;
+			});
 
-        this.nutriscores = Object.values(NutriScore);
-    }
+		this.tagService.findAll().subscribe((tags: FindAllResponse<Tag>) => {
+			this.tags = tags.result;
+			const productTagIDs =
+				this.product?.tags.map((tag: Tag) => tag.id) ?? [];
+			this.selectedTags = this.tags.filter((tag: Tag) =>
+				productTagIDs.includes(tag.id)
+			);
+		});
 
-    closeModal(): void {
-        this.close.emit();
-    }
+		this.nutriscores = Object.values(NutriScore);
+	}
 
-    tagIsSelected(tag: Tag): boolean {
-        return this.selectedTags.includes(tag);
-    }
+	closeModal(): void {
+		this.close.emit();
+	}
 
-    toggleTag(tag: Tag): void {
-        if (this.tagIsSelected(tag))
-            this.selectedTags.splice(this.selectedTags.indexOf(tag), 1);
-        else
-            this.selectedTags.push(tag);
-    }
+	tagIsSelected(tag: Tag): boolean {
+		return this.selectedTags.includes(tag);
+	}
 
-    create(form: NgForm): void {
-        this.productService.create(this.getFormValues(form)).subscribe((product: Product) => {
-            this.productService.changedSubject.next(product);
-            this.closeModal();
-        })
-    }
+	toggleTag(tag: Tag): void {
+		if (this.tagIsSelected(tag))
+			this.selectedTags.splice(this.selectedTags.indexOf(tag), 1);
+		else this.selectedTags.push(tag);
+	}
 
-    edit(form: NgForm): void {
-        this.productService.update(this.product.id, this.getFormValues(form)).subscribe((product: Product) => {
-            this.productService.changedSubject.next(product);
-            this.closeModal();
-        })
-    }
+	create(form: NgForm): void {
+		this.productService
+			.create(this.getFormValues(form))
+			.subscribe((product: Product) => {
+				this.productService.changedSubject.next(product);
+				this.closeModal();
+			});
+	}
 
-    private getFormValues(form: NgForm): {
-        name: string,
-        description: string,
-        price: number,
-        brandID: number,
-        nutriScore: NutriScore,
-        weight: string,
-        categoryID: number,
-        tagsID: number[],
-        image: string,
-        barcode: string;
-    } {
-        const values = form.value;
-        return {
-            name: values.name,
-            description: values.description,
-            price: +values.price,
-            brandID: values.brand.id,
-            nutriScore: values.nutriscore,
-            weight: values.weight,
-            categoryID: values.category.id,
-            tagsID: this.selectedTags.map((tag: Tag) => tag.id),
-            image: values.image,
-            barcode: values.barcode
-        }
-    }
+	edit(form: NgForm): void {
+		this.productService
+			.update(this.product.id, this.getFormValues(form))
+			.subscribe((product: Product) => {
+				this.productService.changedSubject.next(product);
+				this.closeModal();
+			});
+	}
+
+	private getFormValues(
+		form: NgForm
+	): {
+		name: string;
+		description: string;
+		price: number;
+		brandID: number;
+		nutriScore: NutriScore;
+		weight: string;
+		categoryID: number;
+		tagsID: number[];
+		image: string;
+		barcode: string;
+	} {
+		const values = form.value;
+		return {
+			name: values.name,
+			description: values.description,
+			price: +values.price,
+			brandID: values.brand.id,
+			nutriScore: values.nutriscore,
+			weight: values.weight,
+			categoryID: values.category.id,
+			tagsID: this.selectedTags.map((tag: Tag) => tag.id),
+			image: values.image,
+			barcode: values.barcode,
+		};
+	}
 }

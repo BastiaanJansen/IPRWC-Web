@@ -1,4 +1,11 @@
-import { Component, ComponentFactoryResolver, ComponentRef, OnInit, Type, ViewChild } from "@angular/core";
+import {
+	Component,
+	ComponentFactoryResolver,
+	ComponentRef,
+	OnInit,
+	Type,
+	ViewChild,
+} from "@angular/core";
 import { Brand } from "src/app/brand/brand.model";
 import { BrandService } from "src/app/brand/brand.service";
 import { Category } from "src/app/category/category.model";
@@ -17,6 +24,9 @@ import { SetCategoryModalComponent } from "src/app/category/set-category-modal/s
 import { OrderDirection } from "src/app/shared/filter";
 import { SetProductModalComponent } from "src/app/product/set-product-modal/set-product-modal.component";
 import { ModalService } from "src/app/shared/modal/modal.service";
+import { Order } from "src/app/order/order.model";
+import { OrderService } from "src/app/order/order.service";
+import { OrderItem } from "src/app/order/order-item/order-item.model";
 
 @Component({
 	selector: "app-dashboard",
@@ -26,16 +36,19 @@ import { ModalService } from "src/app/shared/modal/modal.service";
 export class DashboardComponent implements OnInit {
 	take: number = 7;
 
+	orders: FindAllResponse<Order>;
 	products: FindAllResponse<Product>;
 	brands: FindAllResponse<Brand>;
 	categories: FindAllResponse<Category>;
 	tags: FindAllResponse<Tag>;
 
-	@ViewChild(PlaceholderDirective, { static: false }) modalHost: PlaceholderDirective
+	@ViewChild(PlaceholderDirective, { static: false })
+	modalHost: PlaceholderDirective;
 
-	icons = { faPen, faTrash }
+	icons = { faPen, faTrash };
 
 	constructor(
+		private orderService: OrderService,
 		private productService: ProductService,
 		private brandService: BrandService,
 		private categoryService: CategoryService,
@@ -45,21 +58,42 @@ export class DashboardComponent implements OnInit {
 
 	ngOnInit(): void {
 		// Register for changes
-		this.productService.changedSubject.subscribe(() => this.fetchProducts());
-		this.brandService.changedSubject.subscribe(() => this.fetchBrands())
-		this.categoryService.changedSubject.subscribe(() => this.fetchCategories());
+		this.productService.changedSubject.subscribe(() =>
+			this.fetchProducts()
+		);
+		this.brandService.changedSubject.subscribe(() => this.fetchBrands());
+		this.categoryService.changedSubject.subscribe(() =>
+			this.fetchCategories()
+		);
 		this.tagService.changedSubject.subscribe(() => this.fetchTags());
 
 		// Fetch current state
+		this.fetchOrders();
 		this.fetchProducts();
 		this.fetchBrands();
 		this.fetchCategories();
 		this.fetchTags();
 	}
 
+	fetchOrders(): void {
+		this.orderService
+			.findAll({
+				take: this.take,
+				order: "createdAt",
+				orderDirection: OrderDirection.DESC,
+			})
+			.subscribe((orders: FindAllResponse<Order>) => {
+				this.orders = orders;
+			});
+	}
+
 	fetchProducts(): void {
 		this.productService
-			.findAll({ take: this.take, order: "createdAt", orderDirection: OrderDirection.DESC })
+			.findAll({
+				take: this.take,
+				order: "createdAt",
+				orderDirection: OrderDirection.DESC,
+			})
 			.subscribe((products: FindAllResponse<Product>) => {
 				this.products = products;
 			});
@@ -67,15 +101,23 @@ export class DashboardComponent implements OnInit {
 
 	fetchBrands(): void {
 		this.brandService
-		.findAll({ take: this.take, order: "createdAt", orderDirection: OrderDirection.DESC })
-		.subscribe((brands: FindAllResponse<Brand>) => {
-			this.brands = brands;
-		});
+			.findAll({
+				take: this.take,
+				order: "createdAt",
+				orderDirection: OrderDirection.DESC,
+			})
+			.subscribe((brands: FindAllResponse<Brand>) => {
+				this.brands = brands;
+			});
 	}
 
 	fetchCategories(): void {
 		this.categoryService
-			.findAll({ take: this.take, order: "createdAt", orderDirection: OrderDirection.DESC })
+			.findAll({
+				take: this.take,
+				order: "createdAt",
+				orderDirection: OrderDirection.DESC,
+			})
 			.subscribe((categories: FindAllResponse<Category>) => {
 				this.categories = categories;
 			});
@@ -83,17 +125,24 @@ export class DashboardComponent implements OnInit {
 
 	fetchTags(): void {
 		this.tagService
-			.findAll({ take: this.take, order: "createdAt", orderDirection: OrderDirection.DESC })
+			.findAll({
+				take: this.take,
+				order: "createdAt",
+				orderDirection: OrderDirection.DESC,
+			})
 			.subscribe((tags: FindAllResponse<Tag>) => {
 				this.tags = tags;
 			});
 	}
 
 	showTagModal(tag?: Tag): void {
-		const modal = this.modalService.createModal(SetTagModalComponent, this.modalHost);
+		const modal = this.modalService.createModal(
+			SetTagModalComponent,
+			this.modalHost
+		);
 		modal.instance.tag = tag;
 	}
-	
+
 	removeTag(tag: Tag): void {
 		this.tagService.delete(tag.id).subscribe(() => {
 			const index = this.tags.result.indexOf(tag);
@@ -111,7 +160,10 @@ export class DashboardComponent implements OnInit {
 	}
 
 	showBrandModal(brand?: Brand): void {
-		const modal = this.modalService.createModal(SetBrandModalComponent, this.modalHost);
+		const modal = this.modalService.createModal(
+			SetBrandModalComponent,
+			this.modalHost
+		);
 		modal.instance.brand = brand;
 	}
 
@@ -120,7 +172,7 @@ export class DashboardComponent implements OnInit {
 			const index = this.categories.result.indexOf(category);
 			this.categories.result.splice(index, 1);
 			this.categories.count--;
-		})
+		});
 	}
 
 	removeProduct(product: Product): void {
@@ -128,16 +180,30 @@ export class DashboardComponent implements OnInit {
 			const index = this.products.result.indexOf(product);
 			this.products.result.splice(index, 1);
 			this.products.count--;
-		})
+		});
 	}
 
 	showProductModal(product?: Product): void {
-		const modal = this.modalService.createModal(SetProductModalComponent, this.modalHost);
+		const modal = this.modalService.createModal(
+			SetProductModalComponent,
+			this.modalHost
+		);
 		modal.instance.product = product;
 	}
 
 	showCategoryModal(category?: Category): void {
-		const modal = this.modalService.createModal(SetCategoryModalComponent, this.modalHost);
+		const modal = this.modalService.createModal(
+			SetCategoryModalComponent,
+			this.modalHost
+		);
 		modal.instance.category = category;
+	}
+
+	totalPrice(order: Order): string {
+		const prices = order.items.map(
+			(item: OrderItem) => item.quantity * item.product.price
+		);
+
+		return prices.reduce((prev, curr) => prev + curr).toFixed(2);
 	}
 }

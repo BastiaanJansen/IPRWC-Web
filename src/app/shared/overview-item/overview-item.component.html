@@ -2,7 +2,7 @@
     <header>
         <h4>{{ name }} <span>({{ count }})</span></h4>
         <div class="trailing">
-            <button (click)="createItem()"><fa-icon [icon]="icons.faPlus"></fa-icon></button>
+            <button *ngIf="showAddButton" (click)="createItem()"><fa-icon [icon]="icons.faPlus"></fa-icon></button>
         </div>
     </header>
 
@@ -13,8 +13,8 @@
             </div>
 
             <div class="trailing">
-                <button (click)="updateItem(item)"><fa-icon [icon]="icons.faPen"></fa-icon></button>
-                <button (click)="removeItem(item)"><fa-icon [icon]="icons.faTrash"></fa-icon></button>
+                <button *ngIf="showEditButton" (click)="updateItem(item)"><fa-icon [icon]="icons.faPen"></fa-icon></button>
+                <button *ngIf="showDeleteButton" (click)="removeItem(item)"><fa-icon [icon]="icons.faTrash"></fa-icon></button>
             </div>
         </li>
     </ul>

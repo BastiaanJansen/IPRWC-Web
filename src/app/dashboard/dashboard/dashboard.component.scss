@@ -42,3 +42,13 @@
         margin-right: 10px;
     }
 }
+
+.order-item {
+    .products {
+        margin-left: 20px;
+
+        & > li {
+            margin: 20px 0;
+        }
+    }
+}

@@ -3,6 +3,30 @@
 
     <main>
         <section>
+            <app-overview-item class="overview-item" *ngIf="orders" [items]="orders.result" name="Bestellingen" [count]="orders.count" [showAddButton]="false" [showEditButton]="false" [showDeleteButton]="false">
+                <ng-template appOverviewItemRow let-item>
+                    <div class="order-item">
+                        <p>{{ item.user.firstname }} {{ item.user.lastname }}</p>
+                        <ul class="item-info-list">
+                            <li>Aantal producten: {{ item.items.length }}</li>
+                            <li>€ {{ totalPrice(item) }}</li>
+                        </ul>
+
+                        <div class="products">
+                            <li *ngFor="let orderItem of item.items">
+                                {{ orderItem.product.name }}
+                                <ul class="item-info-list">
+                                    <li>€ {{ orderItem.product.price }}</li>
+                                    <li>Aantal: {{ orderItem.quantity }}</li>
+                                </ul>
+                            </li>
+                        </div>
+                    </div>
+                </ng-template>
+            </app-overview-item>
+        </section>
+
+        <section>
             <app-overview-item class="overview-item" *ngIf="products" [items]="products.result" name="Producten" [count]="products.count" (create)="showProductModal()" (update)="showProductModal($event)" (remove)="removeProduct($event)">
                 <ng-template appOverviewItemRow let-item>
                     <div class="product-item">

@@ -69,6 +69,12 @@ export class CartService {
 		);
 	}
 
+	clear(): void {
+		this.items = [];
+		this.saveItemsInLocalStorage();
+		this.itemsSubject.next(this.items);
+	}
+
 	private addQuantity(product: Product): void {
 		const currentQuantity = this.getQuantity(product);
 		this.changeQuantity(product, currentQuantity + 1);
