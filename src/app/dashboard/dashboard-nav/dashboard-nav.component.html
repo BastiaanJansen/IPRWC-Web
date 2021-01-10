@@ -1,0 +1,10 @@
+<nav>
+    <div class="container">
+        <ul class="links">
+            <li><a routerLinkActive="active" routerLink="/" [routerLinkActiveOptions]="{ exact: true }">Webshop</a></li>
+        </ul>
+        <ul class="personal">
+            <li *ngIf="isLoggedIn()" (click)="logout()">Uitloggen</li>
+        </ul>
+    </div>
+</nav>

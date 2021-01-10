@@ -1,0 +1,26 @@
+<app-overview-item class="overview-item" *ngIf="orders" [items]="orders.result" name="Bestellingen" [count]="orders.count" (remove)="remove($event)" [showAddButton]="false" [showEditButton]="false">
+    <ng-template appOverviewItemRow let-item>
+        <p>{{ item.user.firstname }} {{ item.user.lastname }}</p>
+        <ul class="item-info-list">
+            <li>Aantal producten: {{ item.items.length }}</li>
+            <li>€ {{ totalPrice(item) }}</li>
+        </ul>
+
+        <div class="products">
+            <li *ngFor="let orderItem of item.items">
+                <img [src]="orderItem.product.image" [alt]="orderItem.product.name">
+                <div class="product-info">
+                    <p>{{ orderItem.product.name }}</p>
+                    <ul class="item-info-list">
+                        <li>€ {{ orderItem.product.price }}</li>
+                        <li>Aantal: {{ orderItem.quantity }}</li>
+                    </ul>
+                </div>
+            </li>
+        </div>
+    </ng-template>
+</app-overview-item>
+
+<button *ngIf="orders.count > orders.result.length" (click)="loadMore()">Laad meer...</button>
+
+<ng-template appPlaceholder></ng-template>

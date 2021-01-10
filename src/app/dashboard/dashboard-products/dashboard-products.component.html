@@ -1,0 +1,20 @@
+<app-overview-item class="overview-item" *ngIf="products" [items]="products.result" name="Producten" [count]="products.count" (create)="showModal()" (update)="showModal($event)" (remove)="remove($event)">
+    <ng-template appOverviewItemRow let-item>
+        <div class="product-item">
+            <img [src]="item.image" [alt]="item.name">
+            <div>
+                <p>{{ item.name }}</p>
+                <ul class="item-info-list">
+                    <li>{{ item.brand.name }}</li>
+                    <li>{{ item.weight }}</li>
+                    <li>{{ item.nutriScore }}</li>
+                    <li>€ {{ item.price }}</li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+</app-overview-item>
+
+<button *ngIf="products.count > products.result.length" (click)="loadMore()">Laad meer...</button>
+
+<ng-template appPlaceholder></ng-template>

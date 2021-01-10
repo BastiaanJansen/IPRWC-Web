@@ -1,0 +1,13 @@
+<app-overview-item class="overview-item" *ngIf="categories" [items]="categories.result" name="Categorieën" [count]="categories.count" (create)="showModal()" (update)="showModal($event)" (remove)="remove($event)">
+    <ng-template appOverviewItemRow let-item>
+        <p>{{ item.name }}</p>
+        <ul class="item-info-list">
+            <li>Producten: {{ item.productCount }}</li>
+        </ul>
+    </ng-template>
+</app-overview-item>
+
+
+<button *ngIf="categories.count > categories.result.length" (click)="loadMore()">Laad meer...</button>
+
+<ng-template appPlaceholder></ng-template>

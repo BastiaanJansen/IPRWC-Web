@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { Filter } from "../shared/filter";
 import { FindAllResponse } from "../shared/find-all-response";
 import { CreateOrderDTO } from "./dto/create-order.dto";
@@ -10,6 +10,8 @@ import { Order } from "./order.model";
 	providedIn: "root",
 })
 export class OrderService {
+	changedSubject = new Subject<Order>();
+
 	constructor(private http: HttpClient) {}
 
 	findAll(filter?: Filter): Observable<FindAllResponse<Order>> {
@@ -29,5 +31,9 @@ export class OrderService {
 			}
 		);
 		return observable;
+	}
+
+	delete(orderID: number): Observable<Object> {
+		return this.http.delete(`/orders/${orderID}`);
 	}
 }

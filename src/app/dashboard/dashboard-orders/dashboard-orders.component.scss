@@ -3,7 +3,28 @@
     p {
         font-weight: 400;
     }
+
+    .products {
+        margin-left: 20px;
+        
+        li {
+            display: flex;
+            margin: 20px 0;
+            align-items: center;
+
+            img {
+                max-width: 60px;
+                margin-right: 20px;
+            }
     
+            .product-info {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
+    }
+
     .item-info-list {
         display: flex;
 

@@ -24,3 +24,13 @@
         }
     }
 }
+
+.product-item {
+    display: flex;
+    align-items: center;
+
+    img {
+        max-width: 80px;
+        margin-right: 10px;
+    }
+}

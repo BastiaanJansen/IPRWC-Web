@@ -1,6 +1,6 @@
 <app-modal [title]="category ? 'Wijzig categorie' : 'Nieuwe categorie'" (close)="closeModal()">
     <ng-container body>
-        <form #setCategoryForm="ngForm" id="set-cateegory-form" (ngSubmit)="category ? edit(setCategoryForm) : create(setCategoryForm)">
+        <form #setCategoryForm="ngForm" id="set-category-form" (ngSubmit)="category ? edit(setCategoryForm) : create(setCategoryForm)">
             <div class="form-group">
                 <label for="category">Categorienaam</label>
                 <input type="text" name="name" id="category" placeholder="Categorienaam" [ngModel]="category?.name" required>

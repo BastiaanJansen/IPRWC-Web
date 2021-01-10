@@ -4,8 +4,9 @@
             <li><a routerLinkActive="active" routerLink="" [routerLinkActiveOptions]="{ exact: true }">Producten</a></li>
         </ul>
         <ul class="personal">
-            <li><a routerLinkActive="active" routerLink="login" *ngIf="!authService.isLoggedIn()">Inloggen</a></li>
-            <li *ngIf="authService.isLoggedIn()" (click)="logout()">Uitloggen</li>
+            <li><a routerLinkActive="active" routerLink="login" *ngIf="!isLoggedIn()">Inloggen</a></li>
+            <li *ngIf="isLoggedIn()" (click)="logout()">Uitloggen</li>
+            <li *ngIf="user?.admin"><a routerLink="/dashboard">Administratiepaneel</a></li>
             <li id="cart" routerLink="cart"><fa-icon [icon]="icons.faShoppingBasket"></fa-icon> <span *ngIf="totalItemsInCart > 0" class="items-in-cart">{{ totalItemsInCart }}</span></li>
         </ul>
     </div>

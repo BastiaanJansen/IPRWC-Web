@@ -1,54 +1,22 @@
 @import "/src/app/shared/variables";
 
-.overview {
-    display: grid;
-    grid-gap: 40px;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+.container {
+    margin-bottom: 50px;
 }
 
-.overview-item {
-
-    p {
-        font-weight: 400;
-    }
-    
-    .item-info-list {
-        display: flex;
-
-        li {
-            font-size: 13px;
-            margin-top: 5px;
-            margin-right: 16px;
-
-            &::after {
-                content: "•";
-                position: absolute;
-                margin-left: 5px;
-            }
-
-            &:last-of-type::after {
-                content: ""
-            }
-        }
-    }
-}
-
-.product-item {
+.tabs {
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
+    margin: -10px -10px 0 -10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $color-gray-300;
 
-    img {
-        max-width: 80px;
-        margin-right: 10px;
-    }
-}
+    li {
+        margin: 10px;
 
-.order-item {
-    .products {
-        margin-left: 20px;
-
-        & > li {
-            margin: 20px 0;
+        a.active {
+            color: $color-primary;
+            font-weight: bold;
         }
     }
 }

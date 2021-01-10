@@ -6,17 +6,15 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { NavComponent } from "./shared/components/nav/nav.component";
 import { APIInterceptor } from "./shared/api.interceptor";
 import { ProductModule } from "./product/product.module";
 import { SharedModule } from "./shared/shared.module";
 import { AuthModule } from "./auth/auth.module";
 import { CartModule } from "./cart/cart.module";
 import { DashboardModule } from "./dashboard/dashboard.module";
-import { SetBrandModalComponent } from "./brand/set-brand-modal/set-brand-modal.component";
 
 @NgModule({
-	declarations: [AppComponent, NavComponent],
+	declarations: [AppComponent],
 	imports: [
 		BrowserModule,
 		HttpClientModule,

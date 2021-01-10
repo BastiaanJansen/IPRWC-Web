@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { NgForm } from "@angular/forms";
+import { Modal } from "src/app/shared/modal/model.interface";
 import { Category } from "../category.model";
 import { CategoryService } from "../category.service";
 
@@ -8,29 +9,33 @@ import { CategoryService } from "../category.service";
 	templateUrl: "./set-category-modal.component.html",
 	styleUrls: ["./set-category-modal.component.scss"],
 })
-export class SetCategoryModalComponent implements OnInit {
+export class SetCategoryModalComponent implements OnInit, Modal {
 	@Input() category?: Category;
-    @Output() close = new EventEmitter();
+	@Output() close = new EventEmitter();
 
-    constructor(private categoryService: CategoryService) { }
+	constructor(private categoryService: CategoryService) {}
 
-    ngOnInit(): void {}
+	ngOnInit(): void {}
 
-    closeModal(): void {
-        this.close.emit();
-    }
+	closeModal(): void {
+		this.close.emit();
+	}
 
-    create(form: NgForm): void {
-        this.categoryService.create({ name: form.value.name }).subscribe((category: Category) => {
-            this.categoryService.changedSubject.next(category);
-            this.closeModal();
-        })
-    }
+	create(form: NgForm): void {
+		this.categoryService
+			.create({ name: form.value.name })
+			.subscribe((category: Category) => {
+				this.categoryService.changedSubject.next(category);
+				this.closeModal();
+			});
+	}
 
-    edit(form: NgForm): void {
-        this.categoryService.update(this.category.id, { name: form.value.name }).subscribe((category: Category) => {
-            this.categoryService.changedSubject.next(category);
-            this.closeModal();
-        })
-    }
+	edit(form: NgForm): void {
+		this.categoryService
+			.update(this.category.id, { name: form.value.name })
+			.subscribe((category: Category) => {
+				this.categoryService.changedSubject.next(category);
+				this.closeModal();
+			});
+	}
 }

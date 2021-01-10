@@ -1,14 +1,12 @@
-<div class="container">
-    <app-header title="Merken"></app-header>
+<app-overview-item class="overview-item" *ngIf="brands" name="Totaal" [items]="brands.result" [count]="brands.count" (create)="showModal()" (update)="showModal($event)" (remove)="removeBrand($event)">
+    <ng-template appOverviewItemRow let-item>
+        <p>{{ item.name }}</p>
+        <ul class="item-info-list">
+            <li>Producten: {{ item.productCount }}</li>
+        </ul>
+    </ng-template>
+</app-overview-item>
 
-    <app-overview-item *ngIf="brands" name="Totaal" [items]="brands.result" [count]="brands.count" (create)="showModal()">
-        <ng-template appOverviewItemRow let-item>
-            <p>{{ item.name }}</p>
-            <ul class="item-info-list">
-                <li>Producten: {{ item.productCount }}</li>
-            </ul>
-        </ng-template>
-    </app-overview-item>
+<button *ngIf="brands.count > brands.result.length" (click)="loadMore()">Laad meer...</button>
 
-    <ng-template appPlaceholder></ng-template>
-</div>
+<ng-template appPlaceholder></ng-template>

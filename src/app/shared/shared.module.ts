@@ -9,6 +9,9 @@ import { DropdownOptionDirective } from "./dropdown/dropdown-option.directive";
 import { OverviewItemRowDirective } from "./overview-item/overview-item-row.directive";
 import { PlaceholderDirective } from "./placeholder.directive";
 import { AlertComponent } from "./alert/alert.component";
+import { ConfirmModalComponent } from "./confirm-modal/confirm-modal.component";
+import { NavComponent } from "./components/nav/nav.component";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
 	declarations: [
@@ -20,8 +23,10 @@ import { AlertComponent } from "./alert/alert.component";
 		OverviewItemRowDirective,
 		PlaceholderDirective,
 		AlertComponent,
+		ConfirmModalComponent,
+		NavComponent,
 	],
-	imports: [CommonModule, FontAwesomeModule],
+	imports: [CommonModule, RouterModule, FontAwesomeModule],
 	exports: [
 		HeaderComponent,
 		ModalComponent,
@@ -31,6 +36,7 @@ import { AlertComponent } from "./alert/alert.component";
 		OverviewItemRowDirective,
 		PlaceholderDirective,
 		AlertComponent,
+		NavComponent,
 	],
 })
 export class SharedModule {}

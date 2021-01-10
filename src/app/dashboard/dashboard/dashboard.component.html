@@ -1,78 +1,17 @@
+<app-dashboard-nav></app-dashboard-nav>
 <div class="container">
     <app-header title="Dashboard"></app-header>
 
     <main>
-        <section>
-            <app-overview-item class="overview-item" *ngIf="orders" [items]="orders.result" name="Bestellingen" [count]="orders.count" [showAddButton]="false" [showEditButton]="false" [showDeleteButton]="false">
-                <ng-template appOverviewItemRow let-item>
-                    <div class="order-item">
-                        <p>{{ item.user.firstname }} {{ item.user.lastname }}</p>
-                        <ul class="item-info-list">
-                            <li>Aantal producten: {{ item.items.length }}</li>
-                            <li>€ {{ totalPrice(item) }}</li>
-                        </ul>
+        <ul class="tabs">
+            <li><a routerLinkActive="active" [routerLink]="['/dashboard', 'products']">Producten</a></li>
+            <li><a routerLinkActive="active" [routerLink]="['/dashboard', 'orders']">Bestellingen</a></li>
+            <li><a routerLinkActive="active" [routerLink]="['/dashboard', 'brands']">Merken</a></li>
+            <li><a routerLinkActive="active" [routerLink]="['/dashboard', 'tags']">Labels</a></li>
+            <li><a routerLinkActive="active" [routerLink]="['/dashboard', 'categories']">Categorieën</a></li>
+        </ul>
 
-                        <div class="products">
-                            <li *ngFor="let orderItem of item.items">
-                                {{ orderItem.product.name }}
-                                <ul class="item-info-list">
-                                    <li>€ {{ orderItem.product.price }}</li>
-                                    <li>Aantal: {{ orderItem.quantity }}</li>
-                                </ul>
-                            </li>
-                        </div>
-                    </div>
-                </ng-template>
-            </app-overview-item>
-        </section>
-
-        <section>
-            <app-overview-item class="overview-item" *ngIf="products" [items]="products.result" name="Producten" [count]="products.count" (create)="showProductModal()" (update)="showProductModal($event)" (remove)="removeProduct($event)">
-                <ng-template appOverviewItemRow let-item>
-                    <div class="product-item">
-                        <img [src]="item.image" [alt]="item.name">
-                        <div>
-                            <p>{{ item.name }}</p>
-                            <ul class="item-info-list">
-                                <li>{{ item.brand.name }}</li>
-                                <li>{{ item.weight }}</li>
-                                <li>{{ item.nutriScore }}</li>
-                                <li>€ {{ item.price }}</li>
-                            </ul>
-                        </div>
-                    </div>
-                </ng-template>
-            </app-overview-item>
-        </section>
-
-        <section class="overview">
-            <app-overview-item class="overview-item" *ngIf="brands" [items]="brands.result" name="Merken" [count]="brands.count" (create)="showBrandModal()" (update)="showBrandModal($event)" (remove)="removeBrand($event)">
-                <ng-template appOverviewItemRow let-item>
-                    <p>{{ item.name }}</p>
-                    <ul class="item-info-list">
-                        <li>Producten: {{ item.productCount }}</li>
-                    </ul>
-                </ng-template>
-            </app-overview-item>
-
-            <app-overview-item class="overview-item" *ngIf="categories" [items]="categories.result" name="Categorieën" [count]="categories.count" (create)="showCategoryModal()" (update)="showCategoryModal($event)" (remove)="removeCategory($event)">
-                <ng-template appOverviewItemRow let-item>
-                    <p>{{ item.name }}</p>
-                    <ul class="item-info-list">
-                        <li>Producten: {{ item.productCount }}</li>
-                    </ul>
-                </ng-template>
-            </app-overview-item>
-
-            <app-overview-item class="overview-item" *ngIf="tags" [items]="tags.result" name="Labels" [count]="tags.count" (create)="showTagModal()" (update)="showTagModal($event)" (remove)="removeTag($event)">
-                <ng-template appOverviewItemRow let-item>
-                    <p>{{ item.name }}</p>
-                    <ul class="item-info-list">
-                        <li>Producten: {{ item.productCount }}</li>
-                    </ul>
-                </ng-template>
-            </app-overview-item>
-        </section>
+        <router-outlet></router-outlet>
     </main>
 
     <ng-template appPlaceholder></ng-template>

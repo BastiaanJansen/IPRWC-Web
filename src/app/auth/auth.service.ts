@@ -35,9 +35,12 @@ export class AuthService {
 	}
 
 	register(dto: RegisterDTO): Observable<User> {
-		const observable: Observable<User> = this.http.post<User>("/auth/register", {
-			...dto
-		});
+		const observable: Observable<User> = this.http.post<User>(
+			"/auth/register",
+			{
+				...dto,
+			}
+		);
 
 		return observable;
 	}
