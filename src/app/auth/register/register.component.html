@@ -7,22 +7,22 @@
             <div class="columns">
                 <div class="column form-group">
                     <label for="firstname">Voornaam</label>
-                    <input type="firstname" name="firstname" id="firstname" placeholder="Voornaam" ngModel required>
+                    <input type="firstname" name="firstname" id="firstname" placeholder="Voornaam" #firstname="ngModel" [class]="{ error: hasErrors(firstname) }" ngModel required>
                 </div>
 
                 <div class="column form-group">
                     <label for="lastname">Achternaam</label>
-                    <input type="lastname" name="lastname" id="lastname" placeholder="Achternaam" ngModel required>
+                    <input type="lastname" name="lastname" id="lastname" placeholder="Achternaam" #lastname="ngModel" [class]="{ error: hasErrors(lastname) }" ngModel required>
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="email">E-mailadres</label>
-                <input type="email" name="email" id="email" placeholder="E-mailadres" ngModel required email>
+                <input type="email" name="email" id="email" placeholder="E-mailadres" #email="ngModel" [class]="{ error: hasErrors(email) }" ngModel required email>
             </div>
             <div class="form-group">
                 <label for="password">Wachtwoord</label>
-                <input type="password" name="password" id="password" placeholder="Wachtwoord" ngModel required>
+                <input type="password" name="password" id="password" placeholder="Wachtwoord" #password="ngModel" [class]="{ error: hasErrors(password) }" ngModel required>
             </div>
 
             <div class="form-group">
