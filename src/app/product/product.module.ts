@@ -13,8 +13,9 @@ import { ProductDetailComponent } from "./product-detail/product-detail.componen
 import { ProductPriceComponent } from "./product-price/product-price.component";
 import { ProductsFilterService } from "./products/products-filter.service";
 import { ProductDetailRecommendedComponent } from "./product-detail/product-detail-recommended/product-detail-recommended.component";
-import { SetProductModalComponent } from './set-product-modal/set-product-modal.component';
+import { SetProductModalComponent } from "./set-product-modal/set-product-modal.component";
 import { FormsModule } from "@angular/forms";
+import { CustomFormsModule } from "ng2-validation";
 
 @NgModule({
 	declarations: [
@@ -33,7 +34,8 @@ import { FormsModule } from "@angular/forms";
 		CommonModule,
 		FontAwesomeModule,
 		SharedModule,
-		FormsModule
+		FormsModule,
+		CustomFormsModule,
 	],
 	providers: [ProductsFilterService],
 	exports: [ProductsComponent, ProductPriceComponent],

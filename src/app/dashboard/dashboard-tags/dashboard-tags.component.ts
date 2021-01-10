@@ -32,7 +32,7 @@ export class DashboardTagsComponent implements OnInit {
 		this.fetchTags();
 	}
 
-	fetchTags(skip: number = 0, take: number = 5): void {
+	fetchTags(skip: number = 0, take: number = 10): void {
 		this.tagService
 			.findAll({
 				take,

@@ -1,14 +1,18 @@
 <app-modal [title]="product ? 'Wijzig product' : 'Nieuw product'" (close)="closeModal()">
     <ng-container body>
+        <div class="error-container" *ngIf="error">
+            <p>{{ error }}</p>
+        </div>
+        
         <form #setProductForm="ngForm" id="set-product-form" (ngSubmit)="product ? edit(setProductForm) : create(setProductForm)">
             <div class="form-group">
                 <label for="name">Naam</label>
-                <input type="text" name="name" id="name" placeholder="Naam" [ngModel]="product?.name" required>
+                <input type="text" name="name" id="name" placeholder="Naam" #name="ngModel" [ngModel]="product?.name" [class]="{ error: hasErrors(name) }" required>
             </div>
 
             <div class="form-group">
                 <label for="description">Omschrijving</label>
-                <textarea name="description" id="description" placeholder="Description" [ngModel]="product?.description" required></textarea>
+                <textarea name="description" id="description" placeholder="Description" #description="ngModel" [ngModel]="product?.description" [class]="{ error: hasErrors(description) }" required></textarea>
             </div>
 
             <div class="columns">
@@ -52,24 +56,24 @@
             <div class="columns">
                 <div class="column form-group">
                     <label for="weight">Gewicht / volume</label>
-                    <input type="text" name="weight" id="weight" placeholder="200 gram" [ngModel]="product?.weight" required>
+                    <input type="text" name="weight" id="weight" placeholder="200 gram" #nutriScore="ngModel" [ngModel]="product?.weight" [class]="{ error: hasErrors(nutriScore) }" required>
                 </div>
 
                 <div class="column form-group">
                     <label for="price">Prijs</label>
-                    <input type="text" name="price" id="price" placeholder="Prijs" [ngModel]="product?.price" required>
+                    <input type="text" name="price" id="price" placeholder="Prijs" #price="ngModel" [ngModel]="product?.price" [class]="{ error: hasErrors(price) }" number appTwoDigitDecimaNumber required>
                 </div>
             </div>
 
             <div class="columns">
                 <div class="column form-group">
                     <label for="barcode">EAN Code</label>
-                    <input type="text" name="barcode" id="barcode" placeholder="8710400311140" [ngModel]="product?.barcode" required>
+                    <input type="text" name="barcode" id="barcode" placeholder="8710400311140" #barcode="ngModel" [ngModel]="product?.barcode" [class]="{ error: hasErrors(barcode) }" digits minlength="13" maxlength="13" required>
                 </div>
 
                 <div class="column form-group">
                     <label for="image">Afbeelding</label>
-                    <input type="text" name="image" id="image" placeholder="http://www.website.com/afbeelding.png" [ngModel]="product?.image" required>
+                    <input type="text" name="image" id="image" placeholder="http://www.website.com/afbeelding.png" #image="ngModel" [ngModel]="product?.image" [class]="{ error: hasErrors(image) }" url required>
                 </div>
             </div>
 

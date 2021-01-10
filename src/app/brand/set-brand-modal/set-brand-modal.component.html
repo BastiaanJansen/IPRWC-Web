@@ -3,7 +3,7 @@
         <form #setBrandForm="ngForm" id="set-brand-form" (ngSubmit)="brand ? edit(setBrandForm) : create(setBrandForm)">
             <div class="form-group">
                 <label for="brand">Merknaam</label>
-                <input type="text" name="name" id="brand" placeholder="Merknaam" [ngModel]="brand?.name" required>
+                <input type="text" name="name" id="brand" placeholder="Merknaam" #name="ngModel" [ngModel]="brand?.name" [class]="{ error: hasErrors(name) }" required>
             </div>
         </form>
     </ng-container>

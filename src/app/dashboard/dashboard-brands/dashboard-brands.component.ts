@@ -32,7 +32,7 @@ export class DashboardBrandsComponent implements OnInit {
 		this.fetchBrands();
 	}
 
-	fetchBrands(skip: number = 0, take: number = 5): void {
+	fetchBrands(skip: number = 0, take: number = 10): void {
 		this.brandService
 			.findAll({
 				take,

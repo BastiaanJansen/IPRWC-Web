@@ -12,6 +12,7 @@ import { AlertComponent } from "./alert/alert.component";
 import { ConfirmModalComponent } from "./confirm-modal/confirm-modal.component";
 import { NavComponent } from "./components/nav/nav.component";
 import { RouterModule } from "@angular/router";
+import { TwoDigitDecimaNumberDirective } from "./two-digit-decimal-number.directive";
 
 @NgModule({
 	declarations: [
@@ -25,6 +26,7 @@ import { RouterModule } from "@angular/router";
 		AlertComponent,
 		ConfirmModalComponent,
 		NavComponent,
+		TwoDigitDecimaNumberDirective,
 	],
 	imports: [CommonModule, RouterModule, FontAwesomeModule],
 	exports: [
@@ -37,6 +39,7 @@ import { RouterModule } from "@angular/router";
 		PlaceholderDirective,
 		AlertComponent,
 		NavComponent,
+		TwoDigitDecimaNumberDirective,
 	],
 })
 export class SharedModule {}

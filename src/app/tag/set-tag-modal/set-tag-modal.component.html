@@ -2,8 +2,8 @@
     <ng-container body>
         <form #setTagForm="ngForm" id="set-tag-form" (ngSubmit)="tag ? edit(setTagForm) : create(setTagForm)">
             <div class="form-group">
-                <label for="tag">Tag</label>
-                <input type="text" name="tag" id="tag" placeholder="Tag" [ngModel]="tag?.name" required>
+                <label for="name">Tag</label>
+                <input type="text" name="name" id="name" placeholder="Tag" #name="ngModel" [ngModel]="tag?.name" [class]="{ error: hasErrors(name) }" required>
             </div>
         </form>
     </ng-container>

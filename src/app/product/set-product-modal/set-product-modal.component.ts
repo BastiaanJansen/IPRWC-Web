@@ -1,5 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { NgForm } from "@angular/forms";
+import {
+	Component,
+	ComponentRef,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+	TemplateRef,
+	ViewChild,
+} from "@angular/core";
+import { NgControl, NgForm } from "@angular/forms";
+import { catchError } from "rxjs/operators";
 import { Brand } from "src/app/brand/brand.model";
 import { BrandService } from "src/app/brand/brand.service";
 import { Category } from "src/app/category/category.model";
@@ -26,6 +36,8 @@ export class SetProductModalComponent implements OnInit {
 	brands: Brand[] = [];
 	tags: Tag[] = [];
 	nutriscores: NutriScore[] = [];
+
+	error: string;
 
 	selectedTags: Tag[] = [];
 
@@ -88,21 +100,29 @@ export class SetProductModalComponent implements OnInit {
 	}
 
 	create(form: NgForm): void {
-		this.productService
-			.create(this.getFormValues(form))
-			.subscribe((product: Product) => {
+		this.productService.create(this.getFormValues(form)).subscribe(
+			(product: Product) => {
 				this.productService.changedSubject.next(product);
 				this.closeModal();
-			});
+			},
+			(error) => (this.error = error.error.error.message)
+		);
 	}
 
 	edit(form: NgForm): void {
 		this.productService
 			.update(this.product.id, this.getFormValues(form))
-			.subscribe((product: Product) => {
-				this.productService.changedSubject.next(product);
-				this.closeModal();
-			});
+			.subscribe(
+				(product: Product) => {
+					this.productService.changedSubject.next(product);
+					this.closeModal();
+				},
+				(error) => (this.error = error.error.error.message)
+			);
+	}
+
+	hasErrors(viewChild: NgControl): boolean {
+		return viewChild.invalid && viewChild.dirty && viewChild.touched;
 	}
 
 	private getFormValues(

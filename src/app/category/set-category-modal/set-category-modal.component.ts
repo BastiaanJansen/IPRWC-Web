@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { NgForm } from "@angular/forms";
+import { NgControl, NgForm } from "@angular/forms";
 import { Modal } from "src/app/shared/modal/model.interface";
 import { Category } from "../category.model";
 import { CategoryService } from "../category.service";
@@ -37,5 +37,9 @@ export class SetCategoryModalComponent implements OnInit, Modal {
 				this.categoryService.changedSubject.next(category);
 				this.closeModal();
 			});
+	}
+
+	hasErrors(viewChild: NgControl): boolean {
+		return viewChild.invalid && viewChild.dirty && viewChild.touched;
 	}
 }

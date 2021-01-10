@@ -32,7 +32,7 @@ export class DashboardCategoriesComponent implements OnInit {
 		this.fetchCategories();
 	}
 
-	fetchCategories(skip: number = 0, take: number = 5): void {
+	fetchCategories(skip: number = 0, take: number = 10): void {
 		this.categoryService
 			.findAll({
 				take,

@@ -3,7 +3,7 @@
         <form #setCategoryForm="ngForm" id="set-category-form" (ngSubmit)="category ? edit(setCategoryForm) : create(setCategoryForm)">
             <div class="form-group">
                 <label for="category">Categorienaam</label>
-                <input type="text" name="name" id="category" placeholder="Categorienaam" [ngModel]="category?.name" required>
+                <input type="text" name="name" id="category" placeholder="Categorienaam" #name="ngModel" [ngModel]="category?.name" [class]="{ error: hasErrors(name) }" required>
             </div>
         </form>
     </ng-container>

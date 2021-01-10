@@ -1,5 +1,13 @@
 @import "/src/app/shared/variables";
 
+.error-container {
+    margin-bottom: 30px;
+
+    p {
+        color: $color-red-600;
+    }
+}
+
 #tags {
     display: flex;
     margin: -5px;
