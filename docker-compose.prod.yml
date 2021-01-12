@@ -1,0 +1,11 @@
+version: "3.3"
+
+services:
+    web:
+        image: bastiaan225/webshop-web
+        volumes:
+            - ./node_modules:/app/node_modules
+        ports:
+            - 80:80
+        deploy:
+            replicas: 1

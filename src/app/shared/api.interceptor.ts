@@ -6,6 +6,7 @@ import {
 	HttpRequest,
 } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { environment } from "../../environments/environment"
 
 @Injectable()
 export class APIInterceptor implements HttpInterceptor {
@@ -13,7 +14,7 @@ export class APIInterceptor implements HttpInterceptor {
 		req: HttpRequest<any>,
 		next: HttpHandler
 	): Observable<HttpEvent<any>> {
-		const apiReq = req.clone({ url: `http://localhost:3000${req.url}` });
+		const apiReq = req.clone({ url: `${environment.APIHost}${req.url}` });
 		return next.handle(apiReq);
 	}
 }
