@@ -4,7 +4,8 @@
             <li><a routerLinkActive="active" routerLink="/" [routerLinkActiveOptions]="{ exact: true }">Webshop</a></li>
         </ul>
         <ul class="personal">
-            <li *ngIf="isLoggedIn()" (click)="logout()">Uitloggen</li>
+            <li (click)="logout()">Uitloggen</li>
+            <li><a routerLinkActive="active" [routerLink]="['/user', 'settings']">Instellingen</a></li>
         </ul>
     </div>
 </nav>

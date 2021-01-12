@@ -53,6 +53,15 @@ export class AuthService {
 		this.loginInfo.next(loginInfo);
 	}
 
+	changeUser(user: User): void {
+		const loginInfo = JSON.parse(localStorage.getItem("loginInfo"));
+		if (!loginInfo) return;
+
+		loginInfo.user = user;
+
+		this.handleAuthentication(loginInfo);
+	}
+
 	private handleAuthentication(loginInfo: LoginInfo): void {
 		this.loginInfo.next(loginInfo);
 		localStorage.setItem("loginInfo", JSON.stringify(loginInfo));

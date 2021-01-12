@@ -1,0 +1,31 @@
+<app-nav></app-nav>
+
+<div class="container">
+    <app-header title="Instellingen"></app-header>
+
+    <form #settingsForm="ngForm"(ngSubmit)="save(settingsForm)">
+        <div class="columns">
+            <div class="column form-group">
+                <label for="firstname">Voornaam</label>
+                <input type="text" name="firstname" id="firstname" placeholder="Voornaam" #firstname="ngModel" [ngModel]="user.firstname" [class]="{ error: hasErrors(firstname) }" required>
+            </div> 
+            <div class="column form-group">
+                <label for="lastname">Achternaam</label>
+                <input type="text" name="lastname" id="lastname" placeholder="Achternaam" #lastname="ngModel" [ngModel]="user.lastname" [class]="{ error: hasErrors(lastname) }" required>
+            </div> 
+        </div>
+
+        <div class="form-group">
+            <label for="email">E-mailadres</label>
+            <input type="text" name="email" id="email" placeholder="E-mailadres" #email="ngModel" [ngModel]="user.email" [class]="{ error: hasErrors(email) }" required>
+        </div> 
+
+        <div class="form-group">
+            <button class="button primary" [disabled]="settingsForm.invalid">
+                Opslaan
+            </button>
+        </div>
+    </form>
+
+    <ng-template appPlaceholder></ng-template>
+</div>
