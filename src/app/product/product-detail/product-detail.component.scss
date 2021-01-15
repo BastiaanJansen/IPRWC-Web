@@ -61,23 +61,14 @@ header {
     }
 }
 
-main {
+.recommended-lists {
     display: flex;
     flex-wrap: wrap;
-    margin: 20px -10px;
+    margin: 30px 50px;
 
-    aside {
-        margin: 20px 10px;
-    }
-
-    .product-info-container {
-        flex-grow: 3;
-        flex-basis: 400px;
-    }
-
-    .product-right-bar {
-        flex-basis: 250px;
-        flex-grow: 1;
+    .recommended-list {
+        width: 100%;
+        margin: 20px;
     }
 }
 

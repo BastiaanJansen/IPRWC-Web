@@ -1,3 +1,4 @@
+<app-nav></app-nav>
 <div class="container" *ngIf="product">
     <header>
         <img [src]="product.image" [alt]="product.name">
@@ -23,14 +24,8 @@
         </div>
     </header>
 
-    <main>
-        <section class="product-info-container">
-
-        </section>
-
-        <aside class="product-right-bar">
-           <app-product-detail-recommended [products]="brandProducts" [currentProduct]="product" title="Meer van {{ product.brand.name }}" [linkQueryParams]="{ brand: product.brand.id }"></app-product-detail-recommended>
-           <app-product-detail-recommended [products]="categoryProducts" [currentProduct]="product" title="Soortgelijke producten" [linkQueryParams]="{ category: product.category.id }"></app-product-detail-recommended>
-        </aside>
-    </main>
+    <div class="recommended-lists">
+        <app-product-detail-recommended class="recommended-list" [products]="brandProducts" [currentProduct]="product" title="Meer van {{ product.brand.name }}" [linkQueryParams]="{ brand: product.brand.id }"></app-product-detail-recommended>
+        <app-product-detail-recommended class="recommended-list" [products]="categoryProducts" [currentProduct]="product" title="Soortgelijke producten" [linkQueryParams]="{ category: product.category.id }"></app-product-detail-recommended>
+    </div>
 </div>
