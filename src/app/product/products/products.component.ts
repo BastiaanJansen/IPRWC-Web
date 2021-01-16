@@ -7,6 +7,7 @@ import { ProductsFilterService } from "./products-filter.service";
 import { Product } from "../product.model";
 import { ProductService } from "../product.service";
 import { Subscription } from "rxjs";
+import { OrderDirection } from "src/app/shared/filter";
 
 @Component({
 	selector: "app-products",
@@ -41,8 +42,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
 	}
 
 	findAllProducts(): void {
+		const filter = {
+			...this.route.snapshot.queryParams,
+			order: "createdAt",
+			orderDirection: OrderDirection.DESC,
+		};
 		this.productService
-			.findAll(this.route.snapshot.queryParams)
+			.findAll(filter)
 			.subscribe((products: FindAllResponse<Product>) => {
 				this.products = products.result;
 				this.totalFound = products.count;

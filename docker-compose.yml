@@ -1,0 +1,8 @@
+version: "3.3"
+
+services:
+    web:
+        image: bastiaan225/webshop-web
+        build: .
+        ports:
+            - 80:80
