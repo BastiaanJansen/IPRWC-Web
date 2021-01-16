@@ -6,6 +6,8 @@ import { User } from "../user/user.model";
 import { LoginDTO } from "./dto/login.dto";
 import { RegisterDTO } from "./dto/register.dto";
 import { LoginInfo } from "./login-info.model";
+import jwt_decode from "jwt-decode";
+import { DecodedJWT } from "./decoded-jwt";
 
 @Injectable({
 	providedIn: "root",
@@ -45,7 +47,8 @@ export class AuthService {
 		return observable;
 	}
 
-	isLoggedIn = (): boolean => !!this.loginInfo.getValue();
+	isLoggedIn = (): boolean =>
+		!!this.loginInfo.getValue() && !this.JWTIsExpired();
 
 	autoLogin(): void {
 		const loginInfo = JSON.parse(localStorage.getItem("loginInfo"));
@@ -60,6 +63,12 @@ export class AuthService {
 		loginInfo.user = user;
 
 		this.handleAuthentication(loginInfo);
+	}
+
+	private JWTIsExpired(): boolean {
+		const jwt = this.loginInfo.getValue().jwt;
+		const decoded: DecodedJWT = jwt_decode(jwt);
+		return Math.floor(new Date().getTime() / 1000) >= decoded.exp;
 	}
 
 	private handleAuthentication(loginInfo: LoginInfo): void {
