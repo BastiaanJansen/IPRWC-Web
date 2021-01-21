@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Subscription } from "rxjs";
 import { OrderItem } from "src/app/order/order-item/order-item.model";
 import { Order } from "src/app/order/order.model";
 import { OrderService } from "src/app/order/order.service";
@@ -13,11 +14,13 @@ import { PlaceholderDirective } from "src/app/shared/placeholder.directive";
 	templateUrl: "./dashboard-orders.component.html",
 	styleUrls: ["./dashboard-orders.component.scss"],
 })
-export class DashboardOrdersComponent implements OnInit {
+export class DashboardOrdersComponent implements OnInit, OnDestroy {
 	orders: FindAllResponse<Order> = { result: [], count: 0 };
 
 	@ViewChild(PlaceholderDirective, { static: false })
 	modalHost: PlaceholderDirective;
+
+	private orderSubjectSubscription: Subscription;
 
 	constructor(
 		private orderService: OrderService,
@@ -25,7 +28,9 @@ export class DashboardOrdersComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.orderService.changedSubject.subscribe(() => this.fetchOrders());
+		this.orderSubjectSubscription = this.orderService.changedSubject.subscribe(
+			() => this.fetchOrders()
+		);
 		this.fetchOrders();
 	}
 
@@ -67,5 +72,9 @@ export class DashboardOrdersComponent implements OnInit {
 
 	loadMore(): void {
 		this.fetchOrders(this.orders.result.length);
+	}
+
+	ngOnDestroy(): void {
+		this.orderSubjectSubscription.unsubscribe();
 	}
 }

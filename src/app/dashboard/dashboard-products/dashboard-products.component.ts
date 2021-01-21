@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Subscription } from "rxjs";
 import { Product } from "src/app/product/product.model";
 import { ProductService } from "src/app/product/product.service";
 import { SetProductModalComponent } from "src/app/product/set-product-modal/set-product-modal.component";
@@ -13,11 +14,13 @@ import { PlaceholderDirective } from "src/app/shared/placeholder.directive";
 	templateUrl: "./dashboard-products.component.html",
 	styleUrls: ["./dashboard-products.component.scss"],
 })
-export class DashboardProductsComponent implements OnInit {
+export class DashboardProductsComponent implements OnInit, OnDestroy {
 	products: FindAllResponse<Product> = { result: [], count: 0 };
 
 	@ViewChild(PlaceholderDirective, { static: false })
 	modalHost: PlaceholderDirective;
+
+	private productSubjectSubscription: Subscription;
 
 	constructor(
 		private productService: ProductService,
@@ -25,10 +28,12 @@ export class DashboardProductsComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.productService.changedSubject.subscribe(() => {
-			this.products.result = [];
-			this.fetchProducts();
-		});
+		this.productSubjectSubscription = this.productService.changedSubject.subscribe(
+			() => {
+				this.products.result = [];
+				this.fetchProducts();
+			}
+		);
 		this.fetchProducts();
 	}
 
@@ -70,5 +75,9 @@ export class DashboardProductsComponent implements OnInit {
 
 	loadMore(): void {
 		this.fetchProducts(this.products.result.length);
+	}
+
+	ngOnDestroy(): void {
+		this.productSubjectSubscription.unsubscribe();
 	}
 }

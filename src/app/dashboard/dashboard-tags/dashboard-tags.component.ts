@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Subscription } from "rxjs";
 import { ConfirmModalComponent } from "src/app/shared/confirm-modal/confirm-modal.component";
 import { OrderDirection } from "src/app/shared/filter";
 import { FindAllResponse } from "src/app/shared/find-all-response";
@@ -13,11 +14,13 @@ import { TagService } from "src/app/tag/tag.service";
 	templateUrl: "./dashboard-tags.component.html",
 	styleUrls: ["./dashboard-tags.component.scss"],
 })
-export class DashboardTagsComponent implements OnInit {
+export class DashboardTagsComponent implements OnInit, OnDestroy {
 	tags: FindAllResponse<Tag> = { result: [], count: 0 };
 
 	@ViewChild(PlaceholderDirective, { static: false })
 	modalHost: PlaceholderDirective;
+
+	private tagSubjectSubscription: Subscription;
 
 	constructor(
 		private tagService: TagService,
@@ -25,10 +28,12 @@ export class DashboardTagsComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.tagService.changedSubject.subscribe(() => {
-			this.tags.result = [];
-			this.fetchTags();
-		});
+		this.tagSubjectSubscription = this.tagService.changedSubject.subscribe(
+			() => {
+				this.tags.result = [];
+				this.fetchTags();
+			}
+		);
 		this.fetchTags();
 	}
 
@@ -70,5 +75,9 @@ export class DashboardTagsComponent implements OnInit {
 
 	loadMore(): void {
 		this.fetchTags(this.tags.result.length);
+	}
+
+	ngOnDestroy(): void {
+		this.tagSubjectSubscription.unsubscribe();
 	}
 }

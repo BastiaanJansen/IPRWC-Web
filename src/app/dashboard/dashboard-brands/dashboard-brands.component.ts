@@ -1,4 +1,11 @@
-import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
+import {
+	Component,
+	OnDestroy,
+	OnInit,
+	TemplateRef,
+	ViewChild,
+} from "@angular/core";
+import { Subscription } from "rxjs";
 import { Brand } from "src/app/brand/brand.model";
 import { BrandService } from "src/app/brand/brand.service";
 import { SetBrandModalComponent } from "src/app/brand/set-brand-modal/set-brand-modal.component";
@@ -13,11 +20,13 @@ import { PlaceholderDirective } from "src/app/shared/placeholder.directive";
 	templateUrl: "./dashboard-brands.component.html",
 	styleUrls: ["./dashboard-brands.component.scss"],
 })
-export class DashboardBrandsComponent implements OnInit {
+export class DashboardBrandsComponent implements OnInit, OnDestroy {
 	brands: FindAllResponse<Brand> = { result: [], count: 0 };
 
 	@ViewChild(PlaceholderDirective, { static: false })
 	modalHost: PlaceholderDirective;
+
+	private brandSubjectSubscription: Subscription;
 
 	constructor(
 		private brandService: BrandService,
@@ -25,10 +34,12 @@ export class DashboardBrandsComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.brandService.changedSubject.subscribe(() => {
-			this.brands.result = [];
-			this.fetchBrands();
-		});
+		this.brandSubjectSubscription = this.brandService.changedSubject.subscribe(
+			() => {
+				this.brands.result = [];
+				this.fetchBrands();
+			}
+		);
 		this.fetchBrands();
 	}
 
@@ -70,5 +81,9 @@ export class DashboardBrandsComponent implements OnInit {
 
 	loadMore(): void {
 		this.fetchBrands(this.brands.result.length);
+	}
+
+	ngOnDestroy(): void {
+		this.brandSubjectSubscription.unsubscribe();
 	}
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Subscription } from "rxjs";
 import { Category } from "src/app/category/category.model";
 import { CategoryService } from "src/app/category/category.service";
 import { SetCategoryModalComponent } from "src/app/category/set-category-modal/set-category-modal.component";
@@ -13,11 +14,13 @@ import { PlaceholderDirective } from "src/app/shared/placeholder.directive";
 	templateUrl: "./dashboard-categories.component.html",
 	styleUrls: ["./dashboard-categories.component.scss"],
 })
-export class DashboardCategoriesComponent implements OnInit {
+export class DashboardCategoriesComponent implements OnInit, OnDestroy {
 	categories: FindAllResponse<Category> = { result: [], count: 0 };
 
 	@ViewChild(PlaceholderDirective, { static: false })
 	modalHost: PlaceholderDirective;
+
+	private categorySubjectSubscription: Subscription;
 
 	constructor(
 		private categoryService: CategoryService,
@@ -25,10 +28,12 @@ export class DashboardCategoriesComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.categoryService.changedSubject.subscribe(() => {
-			this.categories.result = [];
-			this.fetchCategories();
-		});
+		this.categorySubjectSubscription = this.categoryService.changedSubject.subscribe(
+			() => {
+				this.categories.result = [];
+				this.fetchCategories();
+			}
+		);
 		this.fetchCategories();
 	}
 
@@ -70,5 +75,9 @@ export class DashboardCategoriesComponent implements OnInit {
 
 	loadMore(): void {
 		this.fetchCategories(this.categories.result.length);
+	}
+
+	ngOnDestroy(): void {
+		this.categorySubjectSubscription.unsubscribe();
 	}
 }
