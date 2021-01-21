@@ -17,7 +17,8 @@ import { OrderDirection } from "src/app/shared/filter";
 export class ProductsComponent implements OnInit, OnDestroy {
 	products: Product[];
 	totalFound: number;
-	filterSubjectSubscription: Subscription;
+
+	private filterSubjectSubscription: Subscription;
 
 	constructor(
 		private productService: ProductService,
